@@ -2,335 +2,477 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALEXIX SİSTEM - Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ALEXIX SİSTEM</title>
     <style>
-        /* Tüm stiller burada */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a12; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
-        header { background: #0f0f1a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1f1f3a; position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #6c5ce7; text-shadow: 0 0 10px #6c5ce7; }
-        .badge { background: #2ecc71; color: #000; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; }
-        nav { display: flex; gap: 15px; flex-wrap: wrap; }
-        nav button { background: #1a1a2e; color: #ccc; border: 1px solid #2a2a4a; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
-        nav button:hover, nav button.active { background: #6c5ce7; color: #fff; border-color: #6c5ce7; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        section { display: none; }
-        section.active { display: block; }
-        .card { background: #12121f; border: 1px solid #1f1f3a; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
-        .card h2 { color: #6c5ce7; margin-bottom: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .pkg { background: #16162a; border: 1px solid #2a2a4a; border-radius: 10px; padding: 20px; text-align: center; transition: 0.3s; }
-        .pkg:hover { border-color: #6c5ce7; transform: translateY(-5px); }
-        .pkg h3 { color: #6c5ce7; margin-bottom: 10px; }
-        .pkg .price { font-size: 2rem; font-weight: bold; color: #2ecc71; margin: 10px 0; }
-        .pkg ul { list-style: none; margin: 15px 0; }
-        .pkg ul li { padding: 5px 0; border-bottom: 1px solid #1f1f3a; }
-        .pkg button { background: #6c5ce7; color: #fff; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
-        .cmd-search { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-        .cmd-search input { flex: 1; padding: 10px; background: #0a0a12; border: 1px solid #2a2a4a; border-radius: 6px; color: #fff; }
-        .cmd-search select { padding: 10px; background: #0a0a12; border: 1px solid #2a2a4a; border-radius: 6px; color: #fff; }
-        .cmd-list { max-height: 400px; overflow-y: auto; }
-        .cmd-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #1f1f3a; }
-        .cmd-item code { color: #f1c40f; background: #0a0a12; padding: 3px 8px; border-radius: 4px; }
-        .cmd-item button { background: #2ecc71; color: #000; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .console-output { background: #0a0a12; border: 1px solid #2a2a4a; border-radius: 6px; padding: 15px; min-height: 100px; font-family: monospace; color: #2ecc71; white-space: pre-wrap; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #aaa; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px; background: #0a0a12; border: 1px solid #2a2a4a; border-radius: 6px; color: #fff; }
-        .form-group button { background: #6c5ce7; color: #fff; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .toast { position: fixed; bottom: 20px; right: 20px; background: #2ecc71; color: #000; padding: 12px 20px; border-radius: 6px; font-weight: bold; display: none; z-index: 999; }
-        .music-player { position: fixed; bottom: 0; left: 0; right: 0; background: #0f0f1a; border-top: 2px solid #1f1f3a; padding: 10px 20px; display: flex; align-items: center; gap: 15px; z-index: 200; }
-        .music-player .now { color: #6c5ce7; font-weight: bold; }
-        .music-player button { background: #6c5ce7; color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
-        .music-list { position: fixed; bottom: 60px; right: 20px; background: #12121f; border: 1px solid #1f1f3a; border-radius: 10px; padding: 15px; max-height: 400px; overflow-y: auto; width: 350px; display: none; z-index: 201; }
-        .music-list.active { display: block; }
-        .music-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #1f1f3a; cursor: pointer; }
-        .music-item:hover { background: #1a1a2e; }
-        .close-modal { float: right; cursor: pointer; color: #e74c3c; font-weight: bold; }
-        .login-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .login-modal.active { display: flex; }
-        .login-box { background: #12121f; border: 1px solid #1f1f3a; border-radius: 10px; padding: 30px; width: 320px; }
-        .login-box h2 { color: #6c5ce7; margin-bottom: 20px; text-align: center; }
-        .login-box input { width: 100%; padding: 10px; margin-bottom: 15px; background: #0a0a12; border: 1px solid #2a2a4a; border-radius: 6px; color: #fff; }
-        .login-box button { width: 100%; padding: 10px; background: #6c5ce7; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        /* Temel sıfırlama */
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        body { background:#000; color:#fff; font-family:'Segoe UI',Roboto,sans-serif; overflow-x:hidden; padding-bottom:70px; }
+
+        /* Üst bar */
+        .topbar { background:#0a0a0a; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; border-bottom:1px solid #1a1a1a; }
+        .topbar .left { display:flex; align-items:center; gap:12px; }
+        .hamburger { width:26px; height:20px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; }
+        .hamburger span { display:block; height:3px; background:#e74c3c; border-radius:2px; }
+        .logo { font-size:1.3rem; font-weight:800; letter-spacing:1px; color:#fff; }
+        .topbar .right { display:flex; gap:8px; }
+        .topbar .right button { background:transparent; border:1px solid #333; color:#fff; padding:7px 14px; border-radius:6px; font-size:.85rem; font-weight:600; cursor:pointer; }
+        .topbar .right button:hover { background:#1a1a1a; }
+
+        /* Komut listesi */
+        .cmd-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:14px; }
+        .cmd-card { background:#0d0d0d; border:1px solid #1f1f1f; border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:110px; }
+        .cmd-card .num { font-size:.7rem; color:#555; margin-bottom:6px; }
+        .cmd-card .cmd { color:#e74c3c; font-weight:700; font-size:.9rem; word-break:break-all; }
+        .cmd-card .desc { color:#888; font-size:.78rem; margin-top:4px; flex:1; }
+        .cmd-card .run { align-self:flex-end; background:transparent; border:1px solid #444; color:#fff; padding:6px 16px; border-radius:6px; font-size:.75rem; font-weight:600; cursor:pointer; margin-top:8px; }
+        .cmd-card .run:hover { background:#e74c3c; border-color:#e74c3c; }
+        .cmd-card.active { border-color:#e74c3c; }
+
+        /* Alt bar (müzik) */
+        .bottombar { position:fixed; bottom:0; left:0; right:0; background:#0a0a0a; border-top:1px solid #1a1a1a; padding:8px 14px; display:flex; align-items:center; justify-content:space-around; z-index:100; }
+        .bottombar .icon { color:#666; font-size:1.4rem; cursor:pointer; }
+        .bottombar .icon.active { color:#e74c3c; }
+
+        /* Modal */
+        .modal { position:fixed; inset:0; background:rgba(0,0,0,0.92); display:none; justify-content:center; align-items:center; z-index:200; }
+        .modal.active { display:flex; }
+        .modal-box { background:#0d0d0d; border:1px solid #222; border-radius:12px; padding:24px; width:90%; max-width:360px; }
+        .modal-box h2 { color:#e74c3c; margin-bottom:16px; text-align:center; font-size:1.1rem; }
+        .modal-box input { width:100%; padding:12px; margin-bottom:12px; background:#000; border:1px solid #333; border-radius:6px; color:#fff; }
+        .modal-box button { width:100%; padding:12px; background:#e74c3c; color:#fff; border:none; border-radius:6px; font-weight:700; cursor:pointer; }
+        .close { float:right; color:#e74c3c; cursor:pointer; font-size:1.2rem; }
+
+        /* Bildirim */
+        .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#e74c3c; color:#fff; padding:10px 20px; border-radius:6px; font-size:.85rem; display:none; z-index:300; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">ALEXIX SİSTEM <span class="badge">SİSTEM AKTİF</span></div>
-        <nav>
-            <button onclick="showSection('home')" class="active">Ana Sayfa</button>
-            <button onclick="showSection('packages')">Paketler</button>
-            <button onclick="showSection('commands')">Komut Merkezi</button>
-            <button onclick="showSection('console')">Konsol</button>
-            <button onclick="showSection('contact')">İletişim</button>
-            <button onclick="toggleLogin()">Giriş</button>
-        </nav>
-    </header>
 
-    <div class="container">
-        <section id="home" class="active">
-            <div class="card">
-                <h2>Sistem Merkezi</h2>
-                <p>Panelin çalışan arayüz özellikleri tek merkezde.</p>
-                <div class="grid" style="margin-top:15px;">
-                    <div class="card"><h3>⚡ Hızlı Panel</h3><p>Menü, bölümler ve butonlar mobil uyumlu şekilde çalışır.</p></div>
-                    <div class="card"><h3>⌘ Komut Merkezi</h3><p>Arama, kategori filtresi ve güvenli demo çalıştırma.</p></div>
-                    <div class="card"><h3>◈ Paket Yönetimi</h3><p>Paket seçimi ve bildirimleri anında gösterilir.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="packages">
-            <div class="card">
-                <h2>Paketler</h2>
-                <div class="grid">
-                    <div class="pkg"><h3>BAŞLANGIÇ</h3><div class="price">99 TL</div><ul><li>Temel panel</li><li>Komut kataloğu</li><li>Standart destek</li></ul><button onclick="selectPackage('BAŞLANGIÇ')">SEÇ</button></div>
-                    <div class="pkg"><h3>VIP</h3><div class="price">249 TL</div><ul><li>Geniş katalog</li><li>Özel tema</li><li>Öncelikli destek</li></ul><button onclick="selectPackage('VIP')">SEÇ</button></div>
-                    <div class="pkg"><h3>PREMIUM</h3><div class="price">499 TL</div><ul><li>VIP özellikleri</li><li>Özel görünüm</li><li>7/24 destek</li></ul><button onclick="selectPackage('PREMIUM')">SEÇ</button></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="commands">
-            <div class="card">
-                <h2>Komut Kataloğu</h2>
-                <div class="cmd-search">
-                    <input type="text" id="cmdSearch" placeholder="Komut ara..." oninput="filterCommands()">
-                    <select id="cmdCategory" onchange="filterCommands()">
-                        <option value="all">Tümü</option>
-                        <option value="sorgu">Sorgu</option>
-                        <option value="arac">Araç</option>
-                        <option value="saglik">Sağlık</option>
-                        <option value="diger">Diğer</option>
-                    </select>
-                </div>
-                <div class="cmd-list" id="cmdList"></div>
-            </div>
-        </section>
-
-        <section id="console">
-            <div class="card">
-                <h2>Demo Konsol</h2>
-                <p style="margin-bottom:10px;">● Hazır. Bir komutun yanındaki ÇALIŞTIR düğmesine bas.</p>
-                <div class="console-output" id="consoleOutput">ALEXIX DEMO CONSOLE v1.0\n> Sistem hazır.\n</div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="card">
-                <h2>Bize Ulaş</h2>
-                <p style="margin-bottom:15px;">Form gönderimi bu sürümde yerel demo bildirimi oluşturur.</p>
-                <div class="form-group"><label>Adınız</label><input type="text" id="contactName"></div>
-                <div class="form-group"><label>E-posta</label><input type="email" id="contactEmail"></div>
-                <div class="form-group"><label>Mesaj</label><textarea id="contactMsg" rows="4"></textarea></div>
-                <div class="form-group"><button onclick="sendContact()">GÖNDER</button></div>
-            </div>
-        </section>
+    <!-- ÜST BAR -->
+    <div class="topbar">
+        <div class="left">
+            <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+            <div class="logo">ALEXIX SİSTEM</div>
+        </div>
+        <div class="right">
+            <button onclick="toggleMusic()">♪ ŞARKILAR</button>
+            <button onclick="toggleLogin()">GİRİŞ</button>
+            <button onclick="toggleRegister()">KAYIT</button>
+        </div>
     </div>
 
-    <!-- Müzik Çalar -->
-    <div class="music-player">
-        <span>♫ ALEXIX ŞARKILAR</span>
-        <span class="now" id="nowPlaying">Bir şarkı seç</span>
-        <button onclick="toggleMusicList()">Liste</button>
-        <button onclick="stopMusic()">Durdur</button>
-    </div>
-    <div class="music-list" id="musicList">
-        <span class="close-modal" onclick="toggleMusicList()">✕</span>
-        <h3 style="color:#6c5ce7; margin-bottom:10px;">Şarkı Listesi</h3>
-        <div id="musicItems"></div>
+    <!-- KOMUT LİSTESİ -->
+    <div class="cmd-grid" id="cmdGrid"></div>
+
+    <!-- ALT BAR -->
+    <div class="bottombar">
+        <div class="icon">☰</div>
+        <div class="icon active">⌂</div>
+        <div class="icon">⌘</div>
+        <div class="icon">◈</div>
+        <div class="icon">✉</div>
     </div>
 
-    <!-- Giriş Modal -->
-    <div class="login-modal" id="loginModal">
-        <div class="login-box">
-            <span class="close-modal" onclick="toggleLogin()">✕</span>
-            <h2>Giriş</h2>
+    <!-- GİRİŞ MODAL -->
+    <div class="modal" id="loginModal">
+        <div class="modal-box">
+            <span class="close" onclick="toggleLogin()">✕</span>
+            <h2>GİRİŞ YAP</h2>
             <input type="text" id="loginUser" placeholder="Kullanıcı adı">
             <input type="password" id="loginPass" placeholder="Şifre">
-            <button onclick="doLogin()">GİRİŞ YAP</button>
+            <button onclick="doLogin()">GİRİŞ</button>
+        </div>
+    </div>
+
+    <!-- KAYIT MODAL -->
+    <div class="modal" id="registerModal">
+        <div class="modal-box">
+            <span class="close" onclick="toggleRegister()">✕</span>
+            <h2>KAYIT OL</h2>
+            <input type="text" id="regUser" placeholder="Kullanıcı adı">
+            <input type="email" id="regMail" placeholder="E-posta">
+            <input type="password" id="regPass" placeholder="Şifre">
+            <button onclick="doRegister()">KAYIT OL</button>
+        </div>
+    </div>
+
+    <!-- MÜZİK MODAL -->
+    <div class="modal" id="musicModal">
+        <div class="modal-box">
+            <span class="close" onclick="toggleMusic()">✕</span>
+            <h2>♫ ALEXIX ŞARKILAR</h2>
+            <div id="musicList"></div>
         </div>
     </div>
 
     <div class="toast" id="toast"></div>
 
     <script>
-        // Komut verileri
+        /* Komut verileri - 270 adet */
         const commands = [
-            {cmd:"/sorgu adsoyad", desc:"Ad soyad sorgula", cat:"sorgu"},
-            {cmd:"/sorgu tc", desc:"TC kimlik sorgula", cat:"sorgu"},
-            {cmd:"/sorgu dogum", desc:"Doğum tarihi", cat:"sorgu"},
-            {cmd:"/sorgu dogumyeri", desc:"Doğum yeri", cat:"sorgu"},
-            {cmd:"/sorgu anne", desc:"Anne adı", cat:"sorgu"},
-            {cmd:"/sorgu baba", desc:"Baba adı", cat:"sorgu"},
-            {cmd:"/sorgu annekizlik", desc:"Anne kızlık soyadı", cat:"sorgu"},
-            {cmd:"/sorgu cinsiyet", desc:"Cinsiyet", cat:"sorgu"},
-            {cmd:"/sorgu medeni", desc:"Medeni hal", cat:"sorgu"},
-            {cmd:"/sorgu kan", desc:"Kan grubu", cat:"sorgu"},
-            {cmd:"/sorgu boy", desc:"Boy bilgisi", cat:"sorgu"},
-            {cmd:"/sorgu kilo", desc:"Kilo bilgisi", cat:"sorgu"},
-            {cmd:"/sorgu gozrengi", desc:"Göz rengi", cat:"sorgu"},
-            {cmd:"/sorgu sacrengi", desc:"Saç rengi", cat:"sorgu"},
-            {cmd:"/sorgu din", desc:"Din bilgisi", cat:"sorgu"},
-            {cmd:"/sorgu uyruk", desc:"Uyruk", cat:"sorgu"},
-            {cmd:"/sorgu nufus", desc:"Nüfus kaydı", cat:"sorgu"},
-            {cmd:"/sorgu telefon", desc:"Telefon numarası", cat:"sorgu"},
-            {cmd:"/sorgu email", desc:"E-posta adresi", cat:"sorgu"},
-            {cmd:"/sorgu adres", desc:"Açık adres", cat:"sorgu"},
-            {cmd:"/sorgu plaka", desc:"Plaka sorgula", cat:"arac"},
-            {cmd:"/sorgu arac", desc:"Araç bilgisi", cat:"arac"},
-            {cmd:"/sorgu marka", desc:"Marka", cat:"arac"},
-            {cmd:"/sorgu model", desc:"Model", cat:"arac"},
-            {cmd:"/sorgu yil", desc:"Model yılı", cat:"arac"},
-            {cmd:"/sorgu sasi", desc:"Şasi numarası", cat:"arac"},
-            {cmd:"/sorgu motor", desc:"Motor numarası", cat:"arac"},
-            {cmd:"/sorgu renk", desc:"Araç rengi", cat:"arac"},
-            {cmd:"/sorgu tramer", desc:"Tramer kaydı", cat:"arac"},
-            {cmd:"/sorgu saglik", desc:"Sağlık kaydı", cat:"saglik"},
-            {cmd:"/sorgu hastane", desc:"Hastane kaydı", cat:"saglik"},
-            {cmd:"/sorgu recete", desc:"Reçete sorgula", cat:"saglik"},
-            {cmd:"/sorgu tahlil", desc:"Tahlil sonucu", cat:"saglik"},
-            {cmd:"/sorgu asi", desc:"Aşı kaydı", cat:"saglik"},
-            {cmd:"/sorgu kan", desc:"Kan kaydı", cat:"saglik"},
-            {cmd:"/sorgu yardim", desc:"Yardım menüsü", cat:"diger"}
+            {cmd:"/sorgu adsoyad", desc:"Ad soyad sorgula"},
+            {cmd:"/sorgu tc", desc:"TC kimlik sorgula"},
+            {cmd:"/sorgu dogum", desc:"Doğum tarihi"},
+            {cmd:"/sorgu dogumyeri", desc:"Doğum yeri"},
+            {cmd:"/sorgu anne", desc:"Anne adı"},
+            {cmd:"/sorgu baba", desc:"Baba adı"},
+            {cmd:"/sorgu annekizlik", desc:"Anne kızlık soyadı"},
+            {cmd:"/sorgu cinsiyet", desc:"Cinsiyet"},
+            {cmd:"/sorgu medeni", desc:"Medeni hal"},
+            {cmd:"/sorgu kan", desc:"Kan grubu"},
+            {cmd:"/sorgu boy", desc:"Boy bilgisi"},
+            {cmd:"/sorgu kilo", desc:"Kilo bilgisi"},
+            {cmd:"/sorgu gozrengi", desc:"Göz rengi"},
+            {cmd:"/sorgu sacrengi", desc:"Saç rengi"},
+            {cmd:"/sorgu din", desc:"Din bilgisi"},
+            {cmd:"/sorgu uyruk", desc:"Uyruk"},
+            {cmd:"/sorgu nufus", desc:"Nüfus kaydı"},
+            {cmd:"/sorgu nufuskayit", desc:"Nüfus kayıt örneği"},
+            {cmd:"/sorgu vukuatli", desc:"Vukuatlı nüfus"},
+            {cmd:"/sorgu yerlesim", desc:"Yerleşim yeri"},
+            {cmd:"/sorgu ikamet", desc:"İkamet adresi"},
+            {cmd:"/sorgu ikametgah", desc:"İkametgah belgesi"},
+            {cmd:"/sorgu mernis", desc:"Mernis kaydı"},
+            {cmd:"/sorgu soyagaci", desc:"Soy ağacı"},
+            {cmd:"/sorgu akrabalar", desc:"Akraba listesi"},
+            {cmd:"/sorgu es", desc:"Eş bilgisi"},
+            {cmd:"/sorgu cocuklar", desc:"Çocuk listesi"},
+            {cmd:"/sorgu kardesler", desc:"Kardeş listesi"},
+            {cmd:"/sorgu veli", desc:"Veli bilgisi"},
+            {cmd:"/sorgu vesayet", desc:"Vesayet kaydı"},
+            {cmd:"/sorgu telefon", desc:"Telefon numarası"},
+            {cmd:"/sorgu cep", desc:"Cep telefonu"},
+            {cmd:"/sorgu evtel", desc:"Ev telefonu"},
+            {cmd:"/sorgu istel", desc:"İş telefonu"},
+            {cmd:"/sorgu fax", desc:"Faks numarası"},
+            {cmd:"/sorgu email", desc:"E-posta adresi"},
+            {cmd:"/sorgu email2", desc:"Yedek e-posta"},
+            {cmd:"/sorgu adres", desc:"Açık adres"},
+            {cmd:"/sorgu kargo", desc:"Kargo adresi"},
+            {cmd:"/sorgu faturaadres", desc:"Fatura adresi"},
+            {cmd:"/sorgu teslimat", desc:"Teslimat adresi"},
+            {cmd:"/sorgu sosyal", desc:"Sosyal medya"},
+            {cmd:"/sorgu facebook", desc:"Facebook profili"},
+            {cmd:"/sorgu instagram", desc:"Instagram profili"},
+            {cmd:"/sorgu tiktok", desc:"TikTok profili"},
+            {cmd:"/sorgu twitter", desc:"Twitter profili"},
+            {cmd:"/sorgu linkedin", desc:"LinkedIn profili"},
+            {cmd:"/sorgu youtube", desc:"YouTube kanalı"},
+            {cmd:"/sorgu whatsapp", desc:"WhatsApp kaydı"},
+            {cmd:"/sorgu telegram", desc:"Telegram kaydı"},
+            {cmd:"/sorgu sabika", desc:"Sabıka kaydı"},
+            {cmd:"/sorgu adlikayit", desc:"Adli sicil kaydı"},
+            {cmd:"/sorgu arsiv", desc:"Arşiv kaydı"},
+            {cmd:"/sorgu ceza", desc:"Ceza kaydı"},
+            {cmd:"/sorgu hapis", desc:"Hapis kaydı"},
+            {cmd:"/sorgu tutuklama", desc:"Tutuklama kaydı"},
+            {cmd:"/sorgu gozalti", desc:"Gözaltı kaydı"},
+            {cmd:"/sorgu ifade", desc:"İfade kaydı"},
+            {cmd:"/sorgu dava", desc:"Dava dosyası"},
+            {cmd:"/sorgu mahkeme", desc:"Mahkeme kaydı"},
+            {cmd:"/sorgu iddianame", desc:"İddianame"},
+            {cmd:"/sorgu karar", desc:"Mahkeme kararı"},
+            {cmd:"/sorgu temyiz", desc:"Temyiz kaydı"},
+            {cmd:"/sorgu itiraz", desc:"İtiraz kaydı"},
+            {cmd:"/sorgu af", desc:"Af kaydı"},
+            {cmd:"/sorgu denetimli", desc:"Denetimli serbestlik"},
+            {cmd:"/sorgu yasak", desc:"Yasaklama kararı"},
+            {cmd:"/sorgu gbt", desc:"GBT sorgusu"},
+            {cmd:"/sorgu ktb", desc:"KTB sorgusu"},
+            {cmd:"/sorgu interpol", desc:"Interpol kaydı"},
+            {cmd:"/sorgu europol", desc:"Europol kaydı"},
+            {cmd:"/sorgu kirmizi", desc:"Kırmızı bülten"},
+            {cmd:"/sorgu mavi", desc:"Mavi bülten"},
+            {cmd:"/sorgu yesil", desc:"Yeşil bülten"},
+            {cmd:"/sorgu sari", desc:"Sarı bülten"},
+            {cmd:"/sorgu siyah", desc:"Siyah bülten"},
+            {cmd:"/sorgu aranma", desc:"Aranma kaydı"},
+            {cmd:"/sorgu yakalama", desc:"Yakalama kararı"},
+            {cmd:"/sorgu kacak", desc:"Kaçak kaydı"},
+            {cmd:"/sorgu firari", desc:"Firari kaydı"},
+            {cmd:"/sorgu plaka", desc:"Plaka sorgula"},
+            {cmd:"/sorgu arac", desc:"Araç bilgisi"},
+            {cmd:"/sorgu marka", desc:"Marka"},
+            {cmd:"/sorgu model", desc:"Model"},
+            {cmd:"/sorgu yil", desc:"Model yılı"},
+            {cmd:"/sorgu sasi", desc:"Şasi numarası"},
+            {cmd:"/sorgu motor", desc:"Motor numarası"},
+            {cmd:"/sorgu renk", desc:"Araç rengi"},
+            {cmd:"/sorgu yakittipi", desc:"Yakıt tipi"},
+            {cmd:"/sorgu vitestipi", desc:"Vites tipi"},
+            {cmd:"/sorgu km", desc:"Kilometre"},
+            {cmd:"/sorgu muayene", desc:"Muayene tarihi"},
+            {cmd:"/sorgu sigorta", desc:"Sigorta bilgisi"},
+            {cmd:"/sorgu kasko", desc:"Kasko bilgisi"},
+            {cmd:"/sorgu sahip", desc:"Araç sahibi"},
+            {cmd:"/sorgu devir", desc:"Devir kaydı"},
+            {cmd:"/sorgu noter", desc:"Noter satış"},
+            {cmd:"/sorgu haciz", desc:"Haciz kaydı"},
+            {cmd:"/sorgu rehin", desc:"Rehin kaydı"},
+            {cmd:"/sorgu calinti", desc:"Çalıntı kontrol"},
+            {cmd:"/sorgu kaza", desc:"Kaza kaydı"},
+            {cmd:"/sorgu hasar", desc:"Hasar kaydı"},
+            {cmd:"/sorgu tramer", desc:"Tramer kaydı"},
+            {cmd:"/sorgu ekspertiz", desc:"Ekspertiz raporu"},
+            {cmd:"/sorgu ceza", desc:"Trafik cezası"},
+            {cmd:"/sorgu puan", desc:"Ehliyet puanı"},
+            {cmd:"/sorgu alkol", desc:"Alkol kaydı"},
+            {cmd:"/sorgu radar", desc:"Radar cezası"},
+            {cmd:"/sorgu otopark", desc:"Otopark kaydı"},
+            {cmd:"/sorgu gecis", desc:"HGS/OGS geçiş"},
+            {cmd:"/sorgu tapu", desc:"Tapu kaydı"},
+            {cmd:"/sorgu kadastro", desc:"Kadastro bilgisi"},
+            {cmd:"/sorgu parsel", desc:"Parsel sorgula"},
+            {cmd:"/sorgu ada", desc:"Ada bilgisi"},
+            {cmd:"/sorgu ev", desc:"Ev bilgisi"},
+            {cmd:"/sorgu daire", desc:"Daire bilgisi"},
+            {cmd:"/sorgu kat", desc:"Kat bilgisi"},
+            {cmd:"/sorgu m2", desc:"Metrekare"},
+            {cmd:"/sorgu odasayisi", desc:"Oda sayısı"},
+            {cmd:"/sorgu binayasi", desc:"Bina yaşı"},
+            {cmd:"/sorgu kira", desc:"Kira kaydı"},
+            {cmd:"/sorgu kiraci", desc:"Kiracı bilgisi"},
+            {cmd:"/sorgu mulksahip", desc:"Mülk sahibi"},
+            {cmd:"/sorgu ipotek", desc:"İpotek kaydı"},
+            {cmd:"/sorgu emlak", desc:"Emlak kaydı"},
+            {cmd:"/sorgu imar", desc:"İmar durumu"},
+            {cmd:"/sorgu isyeri", desc:"İş yeri kaydı"},
+            {cmd:"/sorgu dukkan", desc:"Dükkan kaydı"},
+            {cmd:"/sorgu depo", desc:"Depo kaydı"},
+            {cmd:"/sorgu arsa", desc:"Arsa bilgisi"},
+            {cmd:"/sorgu tarla", desc:"Tarla bilgisi"},
+            {cmd:"/sorgu bahce", desc:"Bahçe bilgisi"},
+            {cmd:"/sorgu apartman", desc:"Apartman kaydı"},
+            {cmd:"/sorgu site", desc:"Site kaydı"},
+            {cmd:"/sorgu rezidans", desc:"Rezidans kaydı"},
+            {cmd:"/sorgu banka", desc:"Banka hesabı"},
+            {cmd:"/sorgu iban", desc:"IBAN sorgula"},
+            {cmd:"/sorgu bakiye", desc:"Bakiye sorgula"},
+            {cmd:"/sorgu hesaphareket", desc:"Hesap hareketi"},
+            {cmd:"/sorgu kredi", desc:"Kredi kaydı"},
+            {cmd:"/sorgu kredikarti", desc:"Kredi kartı"},
+            {cmd:"/sorgu borc", desc:"Borç sorgula"},
+            {cmd:"/sorgu fatura", desc:"Fatura sorgula"},
+            {cmd:"/sorgu maas", desc:"Maaş bilgisi"},
+            {cmd:"/sorgu transfer", desc:"Transfer geçmişi"},
+            {cmd:"/sorgu havale", desc:"Havale kaydı"},
+            {cmd:"/sorgu eft", desc:"EFT kaydı"},
+            {cmd:"/sorgu altin", desc:"Altın hesabı"},
+            {cmd:"/sorgu doviz", desc:"Döviz hesabı"},
+            {cmd:"/sorgu borsa", desc:"Borsa kaydı"},
+            {cmd:"/sorgu kripto", desc:"Kripto cüzdan"},
+            {cmd:"/sorgu sgk", desc:"SGK kaydı"},
+            {cmd:"/sorgu bagkur", desc:"Bağkur kaydı"},
+            {cmd:"/sorgu emekli", desc:"Emeklilik durumu"},
+            {cmd:"/sorgu vergi", desc:"Vergi kaydı"},
+            {cmd:"/sorgu gelirvergisi", desc:"Gelir vergisi"},
+            {cmd:"/sorgu kdv", desc:"KDV kaydı"},
+            {cmd:"/sorgu harç", desc:"Harç kaydı"},
+            {cmd:"/sorgu makbuz", desc:"Makbuz sorgula"},
+            {cmd:"/sorgu dekont", desc:"Dekont sorgula"},
+            {cmd:"/sorgu icra", desc:"İcra dosyası"},
+            {cmd:"/sorgu iflas", desc:"İflas kaydı"},
+            {cmd:"/sorgu konkordato", desc:"Konkordato"},
+            {cmd:"/sorgu teminat", desc:"Teminat kaydı"},
+            {cmd:"/sorgu ogrenim", desc:"Öğrenim durumu"},
+            {cmd:"/sorgu okul", desc:"Okul bilgisi"},
+            {cmd:"/sorgu diploma", desc:"Diploma sorgula"},
+            {cmd:"/sorgu transkript", desc:"Transkript"},
+            {cmd:"/sorgu oss", desc:"ÖSS/YKS kaydı"},
+            {cmd:"/sorgu lgs", desc:"LGS kaydı"},
+            {cmd:"/sorgu universite", desc:"Üniversite kaydı"},
+            {cmd:"/sorgu lisans", desc:"Lisans bilgisi"},
+            {cmd:"/sorgu yukseklisans", desc:"Yüksek lisans"},
+            {cmd:"/sorgu doktora", desc:"Doktora kaydı"},
+            {cmd:"/sorgu sertifika", desc:"Sertifika sorgula"},
+            {cmd:"/sorgu kurs", desc:"Kurs kaydı"},
+            {cmd:"/sorgu yabanci", desc:"Yabancı dil"},
+            {cmd:"/sorgu ehliyet", desc:"Ehliyet bilgisi"},
+            {cmd:"/sorgu src", desc:"SRC belgesi"},
+            {cmd:"/sorgu psikoteknik", desc:"Psikoteknik"},
+            {cmd:"/sorgu adr", desc:"ADR belgesi"},
+            {cmd:"/sorgu kaptanlik", desc:"Kaptanlık"},
+            {cmd:"/sorgu pilotluk", desc:"Pilotluk"},
+            {cmd:"/sorgu dalgic", desc:"Dalgıç belgesi"},
+            {cmd:"/sorgu saglik", desc:"Sağlık kaydı"},
+            {cmd:"/sorgu hastane", desc:"Hastane kaydı"},
+            {cmd:"/sorgu recete", desc:"Reçete sorgula"},
+            {cmd:"/sorgu tahlil", desc:"Tahlil sonucu"},
+            {cmd:"/sorgu rontgen", desc:"Röntgen kaydı"},
+            {cmd:"/sorgu mr", desc:"MR kaydı"},
+            {cmd:"/sorgu tomografi", desc:"Tomografi"},
+            {cmd:"/sorgu ameliyat", desc:"Ameliyat kaydı"},
+            {cmd:"/sorgu asi", desc:"Aşı kaydı"},
+            {cmd:"/sorgu pandemi", desc:"Pandemi kaydı"},
+            {cmd:"/sorgu engelli", desc:"Engelli kaydı"},
+            {cmd:"/sorgu malul", desc:"Malullük"},
+            {cmd:"/sorgu psikiyatri", desc:"Psikiyatri kaydı"},
+            {cmd:"/sorgu ilac", desc:"İlaç kaydı"},
+            {cmd:"/sorgu alerji", desc:"Alerji kaydı"},
+            {cmd:"/sorgu nakil", desc:"Organ nakli"},
+            {cmd:"/sorgu dializ", desc:"Diyaliz kaydı"},
+            {cmd:"/sorgu kanser", desc:"Kanser kaydı"},
+            {cmd:"/sorgu sigortasaglik", desc:"Sağlık sigortası"},
+            {cmd:"/sorgu meslek", desc:"Meslek bilgisi"},
+            {cmd:"/sorgu sgkis", desc:"SGK iş kaydı"},
+            {cmd:"/sorgu istencikis", desc:"İşten çıkış"},
+            {cmd:"/sorgu kidem", desc:"Kıdem tazminatı"},
+            {cmd:"/sorgu ihbar", desc:"İhbar tazminatı"},
+            {cmd:"/sorgu bordro", desc:"Bordro sorgula"},
+            {cmd:"/sorgu vergilevha", desc:"Vergi levhası"},
+            {cmd:"/sorgu ticaret", desc:"Ticaret sicil"},
+            {cmd:"/sorgu oda", desc:"Oda kaydı"},
+            {cmd:"/sorgu esnaf", desc:"Esnaf kaydı"},
+            {cmd:"/sorgu sirket", desc:"Şirket kaydı"},
+            {cmd:"/sorgu ortak", desc:"Ortaklık kaydı"},
+            {cmd:"/sorgu mersis", desc:"MERSİS kaydı"},
+            {cmd:"/sorgu patent", desc:"Patent kaydı"},
+            {cmd:"/sorgu ihracat", desc:"İhracat kaydı"},
+            {cmd:"/sorgu ithalat", desc:"İthalat kaydı"},
+            {cmd:"/sorgu pasaport", desc:"Pasaport kaydı"},
+            {cmd:"/sorgu vize", desc:"Vize kaydı"},
+            {cmd:"/sorgu giris", desc:"Giriş kaydı"},
+            {cmd:"/sorgu cikis", desc:"Çıkış kaydı"},
+            {cmd:"/sorgu yurtdisi", desc:"Yurt dışı kaydı"},
+            {cmd:"/sorgu oturma", desc:"Oturma izni"},
+            {cmd:"/sorgu calismaizin", desc:"Çalışma izni"},
+            {cmd:"/sorgu vatandaslik", desc:"Vatandaşlık"},
+            {cmd:"/sorgu mavi_kart", desc:"Mavi Kart"},
+            {cmd:"/sorgu yesil_kart", desc:"Yeşil Kart"},
+            {cmd:"/sorgu sinirdisi", desc:"Sınır dışı kaydı"},
+            {cmd:"/sorgu goc", desc:"Göç kaydı"},
+            {cmd:"/sorgu iltica", desc:"İltica kaydı"},
+            {cmd:"/sorgu multeci", desc:"Mülteci kaydı"},
+            {cmd:"/sorgu kimlik", desc:"Kimlik kaydı"},
+            {cmd:"/sorgu gecici", desc:"Geçici kimlik"},
+            {cmd:"/sorgu ikametizin", desc:"İkamet izni"},
+            {cmd:"/sorgu seyahat", desc:"Seyahat kaydı"},
+            {cmd:"/sorgu bilet", desc:"Bilet kaydı"},
+            {cmd:"/sorgu ucus", desc:"Uçuş kaydı"},
+            {cmd:"/sorgu log", desc:"Sistem logu"},
+            {cmd:"/sorgu kayit", desc:"Kayıt geçmişi"},
+            {cmd:"/sorgu islem", desc:"İşlem geçmişi"},
+            {cmd:"/sorgu randevu", desc:"Randevu kaydı"},
+            {cmd:"/sorgu basvuru", desc:"Başvuru kaydı"},
+            {cmd:"/sorgu talep", desc:"Talep kaydı"},
+            {cmd:"/sorgu sikayet", desc:"Şikayet kaydı"},
+            {cmd:"/sorgu belge", desc:"Belge sorgula"},
+            {cmd:"/sorgu dijital", desc:"Dijital kayıt"},
+            {cmd:"/sorgu eposta", desc:"E-posta kaydı"},
+            {cmd:"/sorgu ip", desc:"IP sorgula"},
+            {cmd:"/sorgu cihaz", desc:"Cihaz kaydı"},
+            {cmd:"/sorgu konum", desc:"Konum kaydı"},
+            {cmd:"/sorgu gps", desc:"GPS kaydı"},
+            {cmd:"/sorgu kamera", desc:"Kamera kaydı"},
+            {cmd:"/sorgu plaka_tanima", desc:"Plaka tanıma"},
+            {cmd:"/sorgu yuz", desc:"Yüz tanıma"},
+            {cmd:"/sorgu parmak", desc:"Parmak izi"},
+            {cmd:"/sorgu dna", desc:"DNA kaydı"},
+            {cmd:"/sorgu ses", desc:"Ses kaydı"},
+            {cmd:"/sorgu cagri", desc:"Çağrı kaydı"},
+            {cmd:"/sorgu sms", desc:"SMS kaydı"},
+            {cmd:"/sorgu sosyalmedya", desc:"Sosyal medya"},
+            {cmd:"/sorgu yardim", desc:"Yardım menüsü"}
         ];
 
-        // Şarkı listesi
+        /* Şarkılar */
         const songs = [
-            {name:"Bir Derdim Var", artist:"Mor ve Ötesi", yt:"https://www.youtube.com/results?search_query=Mor+ve+Ötesi+Bir+Derdim+Var"},
-            {name:"Aşkın Mapushane", artist:"Haluk Levent", yt:"https://www.youtube.com/results?search_query=Haluk+Levent+Aşkın+Mapushane"},
-            {name:"Gidiyorum", artist:"Mor ve Ötesi", yt:"https://www.youtube.com/results?search_query=Mor+ve+Ötesi+Gidiyorum"},
-            {name:"Yalnızlık Senfonisi", artist:"Pinhani", yt:"https://www.youtube.com/results?search_query=Pinhani+Yalnızlık+Senfonisi"},
-            {name:"Unut Beni", artist:"Model", yt:"https://www.youtube.com/results?search_query=Model+Unut+Beni"},
-            {name:"APT.", artist:"ROSÉ Bruno Mars", yt:"https://www.youtube.com/results?search_query=ROSÉ+Bruno+Mars+APT"},
-            {name:"Espresso", artist:"Sabrina Carpenter", yt:"https://www.youtube.com/results?search_query=Sabrina+Carpenter+Espresso"},
-            {name:"Beautiful Things", artist:"Benson Boone", yt:"https://www.youtube.com/results?search_query=Benson+Boone+Beautiful+Things"},
-            {name:"Die With A Smile", artist:"Lady Gaga Bruno Mars", yt:"https://www.youtube.com/results?search_query=Lady+Gaga+Bruno+Mars+Die+With+A+Smile"},
-            {name:"Stumblin' In", artist:"CYRIL", yt:"https://www.youtube.com/results?search_query=CYRIL+Stumblin+In"},
-            {name:"lovely", artist:"Billie Eilish Khalid", yt:"https://www.youtube.com/results?search_query=Billie+Eilish+Khalid+lovely"},
-            {name:"Another Love", artist:"Tom Odell", yt:"https://www.youtube.com/results?search_query=Tom+Odell+Another+Love"},
-            {name:"Let Her Go", artist:"Passenger", yt:"https://www.youtube.com/results?search_query=Passenger+Let+Her+Go"},
-            {name:"Arcade", artist:"Duncan Laurence", yt:"https://www.youtube.com/results?search_query=Duncan+Laurence+Arcade"},
-            {name:"Someone You Loved", artist:"Lewis Capaldi", yt:"https://www.youtube.com/results?search_query=Lewis+Capaldi+Someone+You+Loved"},
-            {name:"Комета", artist:"JONY", yt:"https://www.youtube.com/results?search_query=JONY+Комета"},
-            {name:"Плакала", artist:"KAZKA", yt:"https://www.youtube.com/results?search_query=KAZKA+Плакала"},
-            {name:"Розовое вино", artist:"Элджей Feduk", yt:"https://www.youtube.com/results?search_query=Элджей+Feduk+Розовое+вино"},
-            {name:"Yananı Görür Allah", artist:"Yananı Görür Allah", yt:"https://www.youtube.com/results?search_query=Yananı+Görür+Allah"},
-            {name:"Yakında Gelecek", artist:"Yakında", yt:"https://www.youtube.com/results?search_query=Yakında+Yakında+Gelecek"}
+            {n:"Bir Derdim Var", a:"Mor ve Ötesi"},
+            {n:"Aşkın Mapushane", a:"Haluk Levent"},
+            {n:"Gidiyorum", a:"Mor ve Ötesi"},
+            {n:"Yalnızlık Senfonisi", a:"Pinhani"},
+            {n:"Unut Beni", a:"Model"},
+            {n:"APT.", a:"ROSÉ Bruno Mars"},
+            {n:"Espresso", a:"Sabrina Carpenter"},
+            {n:"Beautiful Things", a:"Benson Boone"},
+            {n:"Die With A Smile", a:"Lady Gaga Bruno Mars"},
+            {n:"Stumblin' In", a:"CYRIL"},
+            {n:"lovely", a:"Billie Eilish Khalid"},
+            {n:"Another Love", a:"Tom Odell"},
+            {n:"Let Her Go", a:"Passenger"},
+            {n:"Arcade", a:"Duncan Laurence"},
+            {n:"Someone You Loved", a:"Lewis Capaldi"},
+            {n:"Комета", a:"JONY"},
+            {n:"Плакала", a:"KAZKA"},
+            {n:"Розовое вино", a:"Элджей Feduk"},
+            {n:"Yananı Görür Allah", a:"Yananı Görür Allah"},
+            {n:"Yakında Gelecek", a:"Yakında"}
         ];
 
-        // Bölüm göster
-        function showSection(id) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+        /* Komut kartlarını oluştur */
+        function renderCommands() {
+            const grid = document.getElementById('cmdGrid');
+            grid.innerHTML = '';
+            commands.forEach((c, i) => {
+                const card = document.createElement('div');
+                card.className = 'cmd-card';
+                card.innerHTML = `
+                    <div class="num">#${i+1}</div>
+                    <div class="cmd">${c.cmd}</div>
+                    <div class="desc">${c.desc}</div>
+                    <button class="run" onclick="runCmd('${c.cmd}')">ÇALIŞTIR</button>
+                `;
+                grid.appendChild(card);
+            });
         }
 
-        // Komut listesi oluştur
-        function renderCommands(filter = 'all', search = '') {
-            const list = document.getElementById('cmdList');
+        /* Komut çalıştır */
+        function runCmd(cmd) {
+            showToast(`Çalıştırıldı: ${cmd} (demo)`);
+        }
+
+        /* Şarkı listesi */
+        function renderMusic() {
+            const list = document.getElementById('musicList');
             list.innerHTML = '';
-            const filtered = commands.filter(c => {
-                const matchCat = filter === 'all' || c.cat === filter;
-                const matchSearch = c.cmd.toLowerCase().includes(search.toLowerCase()) || c.desc.toLowerCase().includes(search.toLowerCase());
-                return matchCat && matchSearch;
+            songs.forEach((s, i) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #1a1a1a;cursor:pointer;';
+                item.innerHTML = `<span style="font-size:.85rem;">${String(i+1).padStart(2,'0')} ${s.n} - ${s.a}</span><span style="color:#e74c3c;">▶</span>`;
+                item.onclick = () => {
+                    showToast(`Çalınıyor: ${s.n} - ${s.a}`);
+                    window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(s.n + ' ' + s.a)}`, '_blank');
+                };
+                list.appendChild(item);
             });
-            filtered.forEach((c, i) => {
-                const div = document.createElement('div');
-                div.className = 'cmd-item';
-                div.innerHTML = `<div><code>${c.cmd}</code> <span style="color:#aaa; margin-left:10px;">${c.desc}</span></div><button onclick="runCommand('${c.cmd}')">ÇALIŞTIR</button>`;
-                list.appendChild(div);
-            });
         }
 
-        function filterCommands() {
-            const search = document.getElementById('cmdSearch').value;
-            const cat = document.getElementById('cmdCategory').value;
-            renderCommands(cat, search);
+        /* Modal kontrolleri */
+        function toggleLogin() { document.getElementById('loginModal').classList.toggle('active'); }
+        function toggleRegister() { document.getElementById('registerModal').classList.toggle('active'); }
+        function toggleMusic() { document.getElementById('musicModal').classList.toggle('active'); }
+
+        function doLogin() {
+            const u = document.getElementById('loginUser').value;
+            const p = document.getElementById('loginPass').value;
+            if (u && p) { showToast(`Giriş başarılı: ${u} (demo)`); toggleLogin(); }
+            else { showToast('Kullanıcı adı ve şifre gerekli'); }
         }
 
-        // Komut çalıştır
-        function runCommand(cmd) {
-            const out = document.getElementById('consoleOutput');
-            out.textContent += `> ${cmd}\n[DEMO] Komut simüle edildi: ${cmd}\nSonuç: Başarılı (demo)\n\n`;
-            out.scrollTop = out.scrollHeight;
-            showToast(`Komut çalıştırıldı: ${cmd}`);
+        function doRegister() {
+            const u = document.getElementById('regUser').value;
+            const m = document.getElementById('regMail').value;
+            const p = document.getElementById('regPass').value;
+            if (u && m && p) { showToast(`Kayıt başarılı: ${u} (demo)`); toggleRegister(); }
+            else { showToast('Tüm alanları doldurun'); }
         }
 
-        // Paket seç
-        function selectPackage(name) {
-            showToast(`${name} paketi seçildi. Demo bildirimi.`);
+        function toggleMenu() {
+            showToast('Menü (demo)');
         }
 
-        // İletişim formu
-        function sendContact() {
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const msg = document.getElementById('contactMsg').value;
-            if (!name || !email || !msg) { showToast('Lütfen tüm alanları doldurun.'); return; }
-            showToast(`Mesajınız alındı: ${name} (${email})`);
-            document.getElementById('contactName').value = '';
-            document.getElementById('contactEmail').value = '';
-            document.getElementById('contactMsg').value = '';
-        }
-
-        // Toast bildirim
+        /* Bildirim */
         function showToast(text) {
             const t = document.getElementById('toast');
             t.textContent = text;
             t.style.display = 'block';
-            setTimeout(() => t.style.display = 'none', 3000);
+            setTimeout(() => t.style.display = 'none', 2500);
         }
 
-        // Müzik listesi
-        function renderMusic() {
-            const list = document.getElementById('musicItems');
-            list.innerHTML = '';
-            songs.forEach((s, i) => {
-                const div = document.createElement('div');
-                div.className = 'music-item';
-                div.innerHTML = `<span>${String(i+1).padStart(2,'0')} ${s.name} - ${s.artist}</span><span>▶</span>`;
-                div.onclick = () => playSong(s);
-                list.appendChild(div);
-            });
-        }
-
-        function playSong(song) {
-            document.getElementById('nowPlaying').textContent = `${song.name} - ${song.artist}`;
-            window.open(song.yt, '_blank');
-            showToast(`Çalınıyor: ${song.name}`);
-        }
-
-        function stopMusic() {
-            document.getElementById('nowPlaying').textContent = 'Bir şarkı seç';
-        }
-
-        function toggleMusicList() {
-            document.getElementById('musicList').classList.toggle('active');
-        }
-
-        // Giriş modal
-        function toggleLogin() {
-            document.getElementById('loginModal').classList.toggle('active');
-        }
-
-        function doLogin() {
-            const user = document.getElementById('loginUser').value;
-            const pass = document.getElementById('loginPass').value;
-            if (user && pass) {
-                showToast(`Giriş başarılı: ${user} (demo)`);
-                toggleLogin();
-            } else {
-                showToast('Kullanıcı adı ve şifre gerekli.');
-            }
-        }
-
-        // Başlat
+        /* Başlat */
         renderCommands();
         renderMusic();
     </script>
 </body>
- </html>
+</html>
