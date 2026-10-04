@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ALEXIX SÄ°STEM</title>
 <style>
 :root{--bg:#050507;--panel:#0c0c12;--panel2:#111119;--red:#ff2442;--red2:#8e1020;--text:#f5f5f7;--muted:#92929d;--line:#292933;--ok:#42e88b}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 50% 0,#3b0710 0,#0b090e 30%,#020204 75%)}body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 42%,rgba(255,20,50,.055),transparent 58%);animation:scan 8s linear infinite}@keyframes scan{0%{transform:translateX(-45%)}100%{transform:translateX(45%)}}
@@ -43,6 +48,7 @@ header{height:72px;position:sticky;top:0;z-index:30;display:flex;align-items:cen
 .music-head strong{flex:1}.music-close{cursor:pointer;color:#ff5269;font-size:20px}
 .music-now{padding:13px 16px;background:#100b0e}.music-now small{display:block;color:#777;margin-bottom:4px}.music-now b{color:#ff5269}
 .music-controls{display:flex;gap:7px;padding:10px 16px;border-bottom:1px solid #292933}.music-controls button{flex:1;background:#15151d;color:#eee;border:1px solid #2a2a35;border-radius:8px;padding:9px;cursor:pointer}.music-controls button:hover{border-color:#a31b30}
+.music-player{margin:0 12px 10px;border:1px solid #292933;border-radius:10px;overflow:hidden;background:#050507;aspect-ratio:16/9;position:relative}.music-player iframe{width:100%;height:100%;border:0;display:none}.player-placeholder{height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#777;font-size:12px}.music-player.ready iframe{display:block}.music-player.ready .player-placeholder{display:none}
 .music-list{max-height:310px;overflow:auto;padding:10px}.track{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid transparent;border-radius:9px;cursor:pointer}.track:hover,.track.active{background:#230a10;border-color:#631322}.track-num{width:25px;color:#666;font-size:11px}.track-name{flex:1;font-size:13px}.track-play{color:#ff5269;font-weight:800}.music-note{padding:8px 12px 12px;color:#666;font-size:10px;line-height:1.4}
 @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:800px){.music-toggle{padding:8px 10px;font-size:12px}.music-panel{right:10px;top:70px}}
@@ -51,44 +57,45 @@ header{height:72px;position:sticky;top:0;z-index:30;display:flex;align-items:cen
 <body>
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="drawer">
-<div class="close" id="drawerClose">×</div>
+<div class="close" id="drawerClose">Ã—</div>
 <h2>ALEXIX</h2>
-<p class="drawer-sub">Komutlar'a tıkla; 270 komutun tamamı açılır. İstediğin komutu seçip devam edebilirsin.</p>
+<p class="drawer-sub">Komutlar'a tÄ±kla; 270 komutun tamamÄ± aÃ§Ä±lÄ±r. Ä°stediÄŸin komutu seÃ§ip devam edebilirsin.</p>
 <div class="main-nav" id="mainNav">
-  <button class="nav big-nav" type="button" id="commandsMenuBtn">⌘ <span>Komutlar</span><b>›</b></button>
-  <button class="nav big-nav" type="button" id="pricesMenuBtn">₺ <span>Paketler</span><b>›</b></button>
-  <button class="nav big-nav" type="button" id="contactMenuBtn">✉ <span>İletişim</span><b>›</b></button>
+  <button class="nav big-nav" type="button" id="commandsMenuBtn">âŒ˜ <span>Komutlar</span><b>â€º</b></button>
+  <button class="nav big-nav" type="button" id="pricesMenuBtn">â‚º <span>Paketler</span><b>â€º</b></button>
+  <button class="nav big-nav" type="button" id="contactMenuBtn">âœ‰ <span>Ä°letiÅŸim</span><b>â€º</b></button>
 </div>
 <div class="nested-panel" id="commandCategories" hidden>
-  <button class="back-btn" type="button" id="backToMain">‹ Ana Menü</button>
+  <button class="back-btn" type="button" id="backToMain">â€¹ Ana MenÃ¼</button>
   <div class="nested-title">KOMUTLAR</div>
-  <p class="nested-help">Önce kategori seç, sonra istediğin komutu aç.</p>
+  <p class="nested-help">Ã–nce kategori seÃ§, sonra istediÄŸin komutu aÃ§.</p>
   <div class="category-list" id="drawerCategories"></div>
 </div>
 <div class="nested-panel" id="commandItems" hidden>
-  <button class="back-btn" type="button" id="backToCategories">‹ Kategoriler</button>
+  <button class="back-btn" type="button" id="backToCategories">â€¹ Kategoriler</button>
   <div class="nested-title" id="commandItemsTitle">KOMUTLAR</div>
   <div class="command-list-mini" id="drawerCommandList"></div>
 </div>
 </aside>
-<header><div class="menu" id="menuBtn">☰</div><div class="logo">ALEXIX SİSTEM</div><div class="header-right"><button type="button" class="music-toggle" id="musicBtn">♫ ŞARKILAR</button><button type="button" class="mini" id="loginBtn">GİRİŞ</button><button type="button" class="mini" id="registerBtn">KAYIT</button></div></header>
+<header><div class="menu" id="menuBtn">â˜°</div><div class="logo">ALEXIX SÄ°STEM</div><div class="header-right"><button type="button" class="music-toggle" id="musicBtn">â™« ÅARKILAR</button><button type="button" class="mini" id="loginBtn">GÄ°RÄ°Å</button><button type="button" class="mini" id="registerBtn">KAYIT</button></div></header>
 <main id="home">
-<section class="hero"><div><span class="badge">ALEXIX SİSTEM • PANEL SÜRÜMÜ</span><h1>ALEXIX <span>SİSTEM</span></h1><p class="sub">Modern panel arayüzü, paket yönetimi, aranabilir komut kataloğu ve etkileşimli demo konsolu. Site içindeki işlevler arayüz ve simülasyon amaçlıdır.</p><div class="actions"><button type="button" class="btn" id="pricesBtn">PAKETLERE BAK</button><button type="button" class="btn alt" id="commandsBtn">KOMUT MERKEZİ</button></div></div></section>
-<section id="about" class="section"><div class="section-head"><div><span class="eyebrow">ALEXIX SİSTEM</span><h2>Sistem Merkezi</h2><p>Panelin çalışan arayüz özellikleri tek merkezde.</p></div><div class="status"><i></i>SİSTEM AKTİF</div></div><div class="grid"><div class="card feature"><b>⚡ Hızlı Panel</b><span>Menü, bölümler ve butonlar mobil uyumlu şekilde çalışır.</span></div><div class="card feature"><b>⌘ Komut Merkezi</b><span>Arama, kategori filtresi ve güvenli demo çalıştırma.</span></div><div class="card feature"><b>◈ Paket Yönetimi</b><span>Paket seçimi ve bildirimleri anında gösterilir.</span></div></div></section>
-<section id="prices" class="section"><div class="section-head"><div><span class="eyebrow">PAKETLER</span><h2>Paketler</h2><p>Demo paketlerini inceleyip seçim yapabilirsin.</p></div></div><div class="grid"><div class="card"><h3>BAŞLANGIÇ</h3><div class="price">99 TL</div><ul><li>Temel panel</li><li>Komut kataloğu</li><li>Standart destek</li></ul><button class="btn" id="planStart">SEÇ</button></div><div class="card hot"><h3>VIP</h3><div class="price">249 TL</div><ul><li>Geniş katalog</li><li>Özel tema</li><li>Öncelikli destek</li></ul><button class="btn" id="planVip">SEÇ</button></div><div class="card"><h3>PREMIUM</h3><div class="price">499 TL</div><ul><li>VIP özellikleri</li><li>Özel görünüm</li><li>7/24 destek</li></ul><button class="btn" id="planPremium">SEÇ</button></div></div></section>
-<section id="commands" class="section"><div class="section-head"><div><span class="eyebrow">KOMUT MERKEZİ</span><h2>Komut Kataloğu</h2><p>Komutlar burada yalnızca güvenli arayüz simülasyonu olarak çalıştırılır.</p></div></div><div class="toolbar"><input id="search" class="input" placeholder="Komut ara..."><select id="category" class="select"><option value="all">Tümü</option></select></div><div id="commandsList" class="commands"></div><div class="console"><div class="console-top">ALEXIX DEMO CONSOLE</div><div id="consoleBody" class="console-body"><span class="green">● Hazır.</span> Bir komutun yanındaki ÇALIŞTIR düğmesine bas.</div></div></section>
-<section id="contact" class="section"><div class="section-head"><div><span class="eyebrow">İLETİŞİM</span><h2>Bize Ulaş</h2><p>Form gönderimi bu sürümde yerel demo bildirimi oluşturur.</p></div></div><div class="contact"><div class="card"><label class="field">Ad<input id="name" placeholder="Adınız"></label><label class="field">E-posta<input id="email" type="email" placeholder="ornek@mail.com"></label><label class="field">Mesaj<textarea id="message" placeholder="Mesajınız..."></textarea></label><button type="button" class="btn" id="sendBtn">MESAJI GÖNDER</button></div><div class="card"><h3>ALEXIX SİSTEM</h3><p style="line-height:1.8;color:#999">Bu site; marka, paket, komut kataloğu ve panel arayüzünü tanıtmak için hazırlanmış bir demo sürümüdür.</p><button type="button" class="btn alt" id="panelLoginBtn">PANELE GİR</button></div></div></section>
+<section class="hero"><div><span class="badge">ALEXIX SÄ°STEM â€¢ PANEL SÃœRÃœMÃœ</span><h1>ALEXIX <span>SÄ°STEM</span></h1><p class="sub">Modern panel arayÃ¼zÃ¼, paket yÃ¶netimi, aranabilir komut kataloÄŸu ve etkileÅŸimli demo konsolu. Site iÃ§indeki iÅŸlevler arayÃ¼z ve simÃ¼lasyon amaÃ§lÄ±dÄ±r.</p><div class="actions"><button type="button" class="btn" id="pricesBtn">PAKETLERE BAK</button><button type="button" class="btn alt" id="commandsBtn">KOMUT MERKEZÄ°</button></div></div></section>
+<section id="about" class="section"><div class="section-head"><div><span class="eyebrow">ALEXIX SÄ°STEM</span><h2>Sistem Merkezi</h2><p>Panelin Ã§alÄ±ÅŸan arayÃ¼z Ã¶zellikleri tek merkezde.</p></div><div class="status"><i></i>SÄ°STEM AKTÄ°F</div></div><div class="grid"><div class="card feature"><b>âš¡ HÄ±zlÄ± Panel</b><span>MenÃ¼, bÃ¶lÃ¼mler ve butonlar mobil uyumlu ÅŸekilde Ã§alÄ±ÅŸÄ±r.</span></div><div class="card feature"><b>âŒ˜ Komut Merkezi</b><span>Arama, kategori filtresi ve gÃ¼venli demo Ã§alÄ±ÅŸtÄ±rma.</span></div><div class="card feature"><b>â—ˆ Paket YÃ¶netimi</b><span>Paket seÃ§imi ve bildirimleri anÄ±nda gÃ¶sterilir.</span></div></div></section>
+<section id="prices" class="section"><div class="section-head"><div><span class="eyebrow">PAKETLER</span><h2>Paketler</h2><p>Demo paketlerini inceleyip seÃ§im yapabilirsin.</p></div></div><div class="grid"><div class="card"><h3>BAÅLANGIÃ‡</h3><div class="price">99 TL</div><ul><li>Temel panel</li><li>Komut kataloÄŸu</li><li>Standart destek</li></ul><button class="btn" id="planStart">SEÃ‡</button></div><div class="card hot"><h3>VIP</h3><div class="price">249 TL</div><ul><li>GeniÅŸ katalog</li><li>Ã–zel tema</li><li>Ã–ncelikli destek</li></ul><button class="btn" id="planVip">SEÃ‡</button></div><div class="card"><h3>PREMIUM</h3><div class="price">499 TL</div><ul><li>VIP Ã¶zellikleri</li><li>Ã–zel gÃ¶rÃ¼nÃ¼m</li><li>7/24 destek</li></ul><button class="btn" id="planPremium">SEÃ‡</button></div></div></section>
+<section id="commands" class="section"><div class="section-head"><div><span class="eyebrow">KOMUT MERKEZÄ°</span><h2>Komut KataloÄŸu</h2><p>Komutlar burada yalnÄ±zca gÃ¼venli arayÃ¼z simÃ¼lasyonu olarak Ã§alÄ±ÅŸtÄ±rÄ±lÄ±r.</p></div></div><div class="toolbar"><input id="search" class="input" placeholder="Komut ara..."><select id="category" class="select"><option value="all">TÃ¼mÃ¼</option></select></div><div id="commandsList" class="commands"></div><div class="console"><div class="console-top">ALEXIX DEMO CONSOLE</div><div id="consoleBody" class="console-body"><span class="green">â— HazÄ±r.</span> Bir komutun yanÄ±ndaki Ã‡ALIÅTIR dÃ¼ÄŸmesine bas.</div></div></section>
+<section id="contact" class="section"><div class="section-head"><div><span class="eyebrow">Ä°LETÄ°ÅÄ°M</span><h2>Bize UlaÅŸ</h2><p>Form gÃ¶nderimi bu sÃ¼rÃ¼mde yerel demo bildirimi oluÅŸturur.</p></div></div><div class="contact"><div class="card"><label class="field">Ad<input id="name" placeholder="AdÄ±nÄ±z"></label><label class="field">E-posta<input id="email" type="email" placeholder="ornek@mail.com"></label><label class="field">Mesaj<textarea id="message" placeholder="MesajÄ±nÄ±z..."></textarea></label><button type="button" class="btn" id="sendBtn">MESAJI GÃ–NDER</button></div><div class="card"><h3>ALEXIX SÄ°STEM</h3><p style="line-height:1.8;color:#999">Bu site; marka, paket, komut kataloÄŸu ve panel arayÃ¼zÃ¼nÃ¼ tanÄ±tmak iÃ§in hazÄ±rlanmÄ±ÅŸ bir demo sÃ¼rÃ¼mÃ¼dÃ¼r.</p><button type="button" class="btn alt" id="panelLoginBtn">PANELE GÄ°R</button></div></div></section>
 </main>
-<footer>© 2026 ALEXIX SİSTEM • Panel sürümü</footer>
+<footer>Â© 2026 ALEXIX SÄ°STEM â€¢ Panel sÃ¼rÃ¼mÃ¼</footer>
 
 <div class="music-panel" id="musicPanel">
-  <div class="music-head"><strong>♫ ALEXIX ŞARKILAR</strong><span class="music-close" id="musicClose">×</span></div>
-  <div class="music-now"><small>ŞU AN ÇALIYOR</small><b id="musicNow">Bir şarkı seç</b></div>
-  <div class="music-controls"><button type="button" id="musicPrev">⏮</button><button type="button" id="musicPlay">▶ OYNAT</button><button type="button" id="musicNext">⏭</button></div>
+  <div class="music-head"><strong>â™« ALEXIX ÅARKILAR</strong><span class="music-close" id="musicClose">Ã—</span></div>
+  <div class="music-now"><small>ÅU AN Ã‡ALIYOR</small><b id="musicNow">Bir ÅŸarkÄ± seÃ§</b></div>
+  <div class="music-player" id="musicPlayerWrap"><div class="player-placeholder" id="playerPlaceholder">Bir ÅŸarkÄ±ya dokun; video burada oynatÄ±lÄ±r.</div><iframe id="musicFrame" title="ALEXIX ÅarkÄ± OynatÄ±cÄ±" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="music-controls"><button type="button" id="musicPrev">â®</button><button type="button" id="musicPlay">â–¶ OYNAT</button><button type="button" id="musicNext">â­</button></div>
   <div class="music-list" id="musicList"></div>
-  <div class="music-note">20 parçalık liste. Bir şarkıya dokunduğunda gerçek kaydı YouTube üzerinde açılır.</div>
+  <div class="music-note">ÅarkÄ±ya dokunduÄŸunda YouTube sayfasÄ±na gitmeden oynatÄ±cÄ± bu panelin iÃ§inde aÃ§Ä±lÄ±r. BazÄ± videolarda iÃ§erik sahibi gÃ¶mÃ¼lÃ¼ oynatmayÄ± kapatmÄ±ÅŸ olabilir.</div>
 </div>
-<div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h3 id="modalTitle">Giriş</h3><div class="x" id="modalClose">×</div></div><div id="modalContent"></div></div></div>
+<div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h3 id="modalTitle">GiriÅŸ</h3><div class="x" id="modalClose">Ã—</div></div><div id="modalContent"></div></div></div>
 <div class="toast" id="toast"></div>
 <script>
 (function() {
@@ -96,42 +103,42 @@ header{height:72px;position:sticky;top:0;z-index:30;display:flex;align-items:cen
 const commands = [
     {no:1,c:'kimlik',n:'/sorgu adsoyad',d:"Ad soyad sorgula"},
     {no:2,c:'kimlik',n:'/sorgu tc',d:"TC kimlik sorgula"},
-    {no:3,c:'kimlik',n:'/sorgu dogum',d:"Doğum tarihi"},
-    {no:4,c:'kimlik',n:'/sorgu dogumyeri',d:"Doğum yeri"},
-    {no:5,c:'kimlik',n:'/sorgu anne',d:"Anne adı"},
-    {no:6,c:'kimlik',n:'/sorgu baba',d:"Baba adı"},
-    {no:7,c:'kimlik',n:'/sorgu annekizlik',d:"Anne kızlık soyadı"},
+    {no:3,c:'kimlik',n:'/sorgu dogum',d:"DoÄŸum tarihi"},
+    {no:4,c:'kimlik',n:'/sorgu dogumyeri',d:"DoÄŸum yeri"},
+    {no:5,c:'kimlik',n:'/sorgu anne',d:"Anne adÄ±"},
+    {no:6,c:'kimlik',n:'/sorgu baba',d:"Baba adÄ±"},
+    {no:7,c:'kimlik',n:'/sorgu annekizlik',d:"Anne kÄ±zlÄ±k soyadÄ±"},
     {no:8,c:'kimlik',n:'/sorgu cinsiyet',d:"Cinsiyet"},
     {no:9,c:'kimlik',n:'/sorgu medeni',d:"Medeni hal"},
     {no:10,c:'kimlik',n:'/sorgu kan',d:"Kan grubu"},
     {no:11,c:'kimlik',n:'/sorgu boy',d:"Boy bilgisi"},
     {no:12,c:'kimlik',n:'/sorgu kilo',d:"Kilo bilgisi"},
-    {no:13,c:'kimlik',n:'/sorgu gozrengi',d:"Göz rengi"},
-    {no:14,c:'kimlik',n:'/sorgu sacrengi',d:"Saç rengi"},
+    {no:13,c:'kimlik',n:'/sorgu gozrengi',d:"GÃ¶z rengi"},
+    {no:14,c:'kimlik',n:'/sorgu sacrengi',d:"SaÃ§ rengi"},
     {no:15,c:'kimlik',n:'/sorgu din',d:"Din bilgisi"},
     {no:16,c:'kimlik',n:'/sorgu uyruk',d:"Uyruk"},
-    {no:17,c:'kimlik',n:'/sorgu nufus',d:"Nüfus kaydı"},
-    {no:18,c:'kimlik',n:'/sorgu nufuskayit',d:"Nüfus kayıt örneği"},
-    {no:19,c:'kimlik',n:'/sorgu vukuatli',d:"Vukuatlı nüfus"},
-    {no:20,c:'kimlik',n:'/sorgu yerlesim',d:"Yerleşim yeri"},
-    {no:21,c:'kimlik',n:'/sorgu ikamet',d:"İkamet adresi"},
-    {no:22,c:'kimlik',n:'/sorgu ikametgah',d:"İkametgah belgesi"},
-    {no:23,c:'kimlik',n:'/sorgu mernis',d:"Mernis kaydı"},
-    {no:24,c:'kimlik',n:'/sorgu soyagaci',d:"Soy ağacı"},
+    {no:17,c:'kimlik',n:'/sorgu nufus',d:"NÃ¼fus kaydÄ±"},
+    {no:18,c:'kimlik',n:'/sorgu nufuskayit',d:"NÃ¼fus kayÄ±t Ã¶rneÄŸi"},
+    {no:19,c:'kimlik',n:'/sorgu vukuatli',d:"VukuatlÄ± nÃ¼fus"},
+    {no:20,c:'kimlik',n:'/sorgu yerlesim',d:"YerleÅŸim yeri"},
+    {no:21,c:'kimlik',n:'/sorgu ikamet',d:"Ä°kamet adresi"},
+    {no:22,c:'kimlik',n:'/sorgu ikametgah',d:"Ä°kametgah belgesi"},
+    {no:23,c:'kimlik',n:'/sorgu mernis',d:"Mernis kaydÄ±"},
+    {no:24,c:'kimlik',n:'/sorgu soyagaci',d:"Soy aÄŸacÄ±"},
     {no:25,c:'kimlik',n:'/sorgu akrabalar',d:"Akraba listesi"},
-    {no:26,c:'kimlik',n:'/sorgu es',d:"Eş bilgisi"},
-    {no:27,c:'kimlik',n:'/sorgu cocuklar',d:"Çocuk listesi"},
-    {no:28,c:'kimlik',n:'/sorgu kardesler',d:"Kardeş listesi"},
+    {no:26,c:'kimlik',n:'/sorgu es',d:"EÅŸ bilgisi"},
+    {no:27,c:'kimlik',n:'/sorgu cocuklar',d:"Ã‡ocuk listesi"},
+    {no:28,c:'kimlik',n:'/sorgu kardesler',d:"KardeÅŸ listesi"},
     {no:29,c:'kimlik',n:'/sorgu veli',d:"Veli bilgisi"},
-    {no:30,c:'kimlik',n:'/sorgu vesayet',d:"Vesayet kaydı"},
-    {no:31,c:'iletisim',n:'/sorgu telefon',d:"Telefon numarası"},
+    {no:30,c:'kimlik',n:'/sorgu vesayet',d:"Vesayet kaydÄ±"},
+    {no:31,c:'iletisim',n:'/sorgu telefon',d:"Telefon numarasÄ±"},
     {no:32,c:'iletisim',n:'/sorgu cep',d:"Cep telefonu"},
     {no:33,c:'iletisim',n:'/sorgu evtel',d:"Ev telefonu"},
-    {no:34,c:'iletisim',n:'/sorgu istel',d:"İş telefonu"},
-    {no:35,c:'iletisim',n:'/sorgu fax',d:"Faks numarası"},
+    {no:34,c:'iletisim',n:'/sorgu istel',d:"Ä°ÅŸ telefonu"},
+    {no:35,c:'iletisim',n:'/sorgu fax',d:"Faks numarasÄ±"},
     {no:36,c:'iletisim',n:'/sorgu email',d:"E-posta adresi"},
     {no:37,c:'iletisim',n:'/sorgu email2',d:"Yedek e-posta"},
-    {no:38,c:'iletisim',n:'/sorgu adres',d:"Açık adres"},
+    {no:38,c:'iletisim',n:'/sorgu adres',d:"AÃ§Ä±k adres"},
     {no:39,c:'iletisim',n:'/sorgu kargo',d:"Kargo adresi"},
     {no:40,c:'iletisim',n:'/sorgu faturaadres',d:"Fatura adresi"},
     {no:41,c:'iletisim',n:'/sorgu teslimat',d:"Teslimat adresi"},
@@ -141,70 +148,70 @@ const commands = [
     {no:45,c:'iletisim',n:'/sorgu tiktok',d:"TikTok profili"},
     {no:46,c:'iletisim',n:'/sorgu twitter',d:"Twitter profili"},
     {no:47,c:'iletisim',n:'/sorgu linkedin',d:"LinkedIn profili"},
-    {no:48,c:'iletisim',n:'/sorgu youtube',d:"YouTube kanalı"},
-    {no:49,c:'iletisim',n:'/sorgu whatsapp',d:"WhatsApp kaydı"},
-    {no:50,c:'iletisim',n:'/sorgu telegram',d:"Telegram kaydı"},
-    {no:51,c:'hukuk',n:'/sorgu sabika',d:"Sabıka kaydı"},
-    {no:52,c:'hukuk',n:'/sorgu adlikayit',d:"Adli sicil kaydı"},
-    {no:53,c:'hukuk',n:'/sorgu arsiv',d:"Arşiv kaydı"},
-    {no:54,c:'hukuk',n:'/sorgu ceza',d:"Ceza kaydı"},
-    {no:55,c:'hukuk',n:'/sorgu hapis',d:"Hapis kaydı"},
-    {no:56,c:'hukuk',n:'/sorgu tutuklama',d:"Tutuklama kaydı"},
-    {no:57,c:'hukuk',n:'/sorgu gozalti',d:"Gözaltı kaydı"},
-    {no:58,c:'hukuk',n:'/sorgu ifade',d:"İfade kaydı"},
-    {no:59,c:'hukuk',n:'/sorgu dava',d:"Dava dosyası"},
-    {no:60,c:'hukuk',n:'/sorgu mahkeme',d:"Mahkeme kaydı"},
-    {no:61,c:'hukuk',n:'/sorgu iddianame',d:"İddianame"},
-    {no:62,c:'hukuk',n:'/sorgu karar',d:"Mahkeme kararı"},
-    {no:63,c:'hukuk',n:'/sorgu temyiz',d:"Temyiz kaydı"},
-    {no:64,c:'hukuk',n:'/sorgu itiraz',d:"İtiraz kaydı"},
-    {no:65,c:'hukuk',n:'/sorgu af',d:"Af kaydı"},
+    {no:48,c:'iletisim',n:'/sorgu youtube',d:"YouTube kanalÄ±"},
+    {no:49,c:'iletisim',n:'/sorgu whatsapp',d:"WhatsApp kaydÄ±"},
+    {no:50,c:'iletisim',n:'/sorgu telegram',d:"Telegram kaydÄ±"},
+    {no:51,c:'hukuk',n:'/sorgu sabika',d:"SabÄ±ka kaydÄ±"},
+    {no:52,c:'hukuk',n:'/sorgu adlikayit',d:"Adli sicil kaydÄ±"},
+    {no:53,c:'hukuk',n:'/sorgu arsiv',d:"ArÅŸiv kaydÄ±"},
+    {no:54,c:'hukuk',n:'/sorgu ceza',d:"Ceza kaydÄ±"},
+    {no:55,c:'hukuk',n:'/sorgu hapis',d:"Hapis kaydÄ±"},
+    {no:56,c:'hukuk',n:'/sorgu tutuklama',d:"Tutuklama kaydÄ±"},
+    {no:57,c:'hukuk',n:'/sorgu gozalti',d:"GÃ¶zaltÄ± kaydÄ±"},
+    {no:58,c:'hukuk',n:'/sorgu ifade',d:"Ä°fade kaydÄ±"},
+    {no:59,c:'hukuk',n:'/sorgu dava',d:"Dava dosyasÄ±"},
+    {no:60,c:'hukuk',n:'/sorgu mahkeme',d:"Mahkeme kaydÄ±"},
+    {no:61,c:'hukuk',n:'/sorgu iddianame',d:"Ä°ddianame"},
+    {no:62,c:'hukuk',n:'/sorgu karar',d:"Mahkeme kararÄ±"},
+    {no:63,c:'hukuk',n:'/sorgu temyiz',d:"Temyiz kaydÄ±"},
+    {no:64,c:'hukuk',n:'/sorgu itiraz',d:"Ä°tiraz kaydÄ±"},
+    {no:65,c:'hukuk',n:'/sorgu af',d:"Af kaydÄ±"},
     {no:66,c:'hukuk',n:'/sorgu denetimli',d:"Denetimli serbestlik"},
-    {no:67,c:'hukuk',n:'/sorgu yasak',d:"Yasaklama kararı"},
+    {no:67,c:'hukuk',n:'/sorgu yasak',d:"Yasaklama kararÄ±"},
     {no:68,c:'hukuk',n:'/sorgu gbt',d:"GBT sorgusu"},
     {no:69,c:'hukuk',n:'/sorgu ktb',d:"KTB sorgusu"},
-    {no:70,c:'hukuk',n:'/sorgu interpol',d:"Interpol kaydı"},
-    {no:71,c:'hukuk',n:'/sorgu europol',d:"Europol kaydı"},
-    {no:72,c:'hukuk',n:'/sorgu kirmizi',d:"Kırmızı bülten"},
-    {no:73,c:'hukuk',n:'/sorgu mavi',d:"Mavi bülten"},
-    {no:74,c:'hukuk',n:'/sorgu yesil',d:"Yeşil bülten"},
-    {no:75,c:'hukuk',n:'/sorgu sari',d:"Sarı bülten"},
-    {no:76,c:'hukuk',n:'/sorgu siyah',d:"Siyah bülten"},
-    {no:77,c:'hukuk',n:'/sorgu aranma',d:"Aranma kaydı"},
-    {no:78,c:'hukuk',n:'/sorgu yakalama',d:"Yakalama kararı"},
-    {no:79,c:'hukuk',n:'/sorgu kacak',d:"Kaçak kaydı"},
-    {no:80,c:'hukuk',n:'/sorgu firari',d:"Firari kaydı"},
+    {no:70,c:'hukuk',n:'/sorgu interpol',d:"Interpol kaydÄ±"},
+    {no:71,c:'hukuk',n:'/sorgu europol',d:"Europol kaydÄ±"},
+    {no:72,c:'hukuk',n:'/sorgu kirmizi',d:"KÄ±rmÄ±zÄ± bÃ¼lten"},
+    {no:73,c:'hukuk',n:'/sorgu mavi',d:"Mavi bÃ¼lten"},
+    {no:74,c:'hukuk',n:'/sorgu yesil',d:"YeÅŸil bÃ¼lten"},
+    {no:75,c:'hukuk',n:'/sorgu sari',d:"SarÄ± bÃ¼lten"},
+    {no:76,c:'hukuk',n:'/sorgu siyah',d:"Siyah bÃ¼lten"},
+    {no:77,c:'hukuk',n:'/sorgu aranma',d:"Aranma kaydÄ±"},
+    {no:78,c:'hukuk',n:'/sorgu yakalama',d:"Yakalama kararÄ±"},
+    {no:79,c:'hukuk',n:'/sorgu kacak',d:"KaÃ§ak kaydÄ±"},
+    {no:80,c:'hukuk',n:'/sorgu firari',d:"Firari kaydÄ±"},
     {no:81,c:'arac',n:'/sorgu plaka',d:"Plaka sorgula"},
-    {no:82,c:'arac',n:'/sorgu arac',d:"Araç bilgisi"},
+    {no:82,c:'arac',n:'/sorgu arac',d:"AraÃ§ bilgisi"},
     {no:83,c:'arac',n:'/sorgu marka',d:"Marka"},
     {no:84,c:'arac',n:'/sorgu model',d:"Model"},
-    {no:85,c:'arac',n:'/sorgu yil',d:"Model yılı"},
-    {no:86,c:'arac',n:'/sorgu sasi',d:"Şasi numarası"},
-    {no:87,c:'arac',n:'/sorgu motor',d:"Motor numarası"},
-    {no:88,c:'arac',n:'/sorgu renk',d:"Araç rengi"},
-    {no:89,c:'arac',n:'/sorgu yakittipi',d:"Yakıt tipi"},
+    {no:85,c:'arac',n:'/sorgu yil',d:"Model yÄ±lÄ±"},
+    {no:86,c:'arac',n:'/sorgu sasi',d:"Åasi numarasÄ±"},
+    {no:87,c:'arac',n:'/sorgu motor',d:"Motor numarasÄ±"},
+    {no:88,c:'arac',n:'/sorgu renk',d:"AraÃ§ rengi"},
+    {no:89,c:'arac',n:'/sorgu yakittipi',d:"YakÄ±t tipi"},
     {no:90,c:'arac',n:'/sorgu vitestipi',d:"Vites tipi"},
     {no:91,c:'arac',n:'/sorgu km',d:"Kilometre"},
     {no:92,c:'arac',n:'/sorgu muayene',d:"Muayene tarihi"},
     {no:93,c:'arac',n:'/sorgu sigorta',d:"Sigorta bilgisi"},
     {no:94,c:'arac',n:'/sorgu kasko',d:"Kasko bilgisi"},
-    {no:95,c:'arac',n:'/sorgu sahip',d:"Araç sahibi"},
-    {no:96,c:'arac',n:'/sorgu devir',d:"Devir kaydı"},
-    {no:97,c:'arac',n:'/sorgu noter',d:"Noter satış"},
-    {no:98,c:'arac',n:'/sorgu haciz',d:"Haciz kaydı"},
-    {no:99,c:'arac',n:'/sorgu rehin',d:"Rehin kaydı"},
-    {no:100,c:'arac',n:'/sorgu calinti',d:"Çalıntı kontrol"},
-    {no:101,c:'arac',n:'/sorgu kaza',d:"Kaza kaydı"},
-    {no:102,c:'arac',n:'/sorgu hasar',d:"Hasar kaydı"},
-    {no:103,c:'arac',n:'/sorgu tramer',d:"Tramer kaydı"},
+    {no:95,c:'arac',n:'/sorgu sahip',d:"AraÃ§ sahibi"},
+    {no:96,c:'arac',n:'/sorgu devir',d:"Devir kaydÄ±"},
+    {no:97,c:'arac',n:'/sorgu noter',d:"Noter satÄ±ÅŸ"},
+    {no:98,c:'arac',n:'/sorgu haciz',d:"Haciz kaydÄ±"},
+    {no:99,c:'arac',n:'/sorgu rehin',d:"Rehin kaydÄ±"},
+    {no:100,c:'arac',n:'/sorgu calinti',d:"Ã‡alÄ±ntÄ± kontrol"},
+    {no:101,c:'arac',n:'/sorgu kaza',d:"Kaza kaydÄ±"},
+    {no:102,c:'arac',n:'/sorgu hasar',d:"Hasar kaydÄ±"},
+    {no:103,c:'arac',n:'/sorgu tramer',d:"Tramer kaydÄ±"},
     {no:104,c:'arac',n:'/sorgu ekspertiz',d:"Ekspertiz raporu"},
-    {no:105,c:'arac',n:'/sorgu ceza',d:"Trafik cezası"},
-    {no:106,c:'arac',n:'/sorgu puan',d:"Ehliyet puanı"},
-    {no:107,c:'arac',n:'/sorgu alkol',d:"Alkol kaydı"},
-    {no:108,c:'arac',n:'/sorgu radar',d:"Radar cezası"},
-    {no:109,c:'arac',n:'/sorgu otopark',d:"Otopark kaydı"},
-    {no:110,c:'arac',n:'/sorgu gecis',d:"HGS/OGS geçiş"},
-    {no:111,c:'tapu',n:'/sorgu tapu',d:"Tapu kaydı"},
+    {no:105,c:'arac',n:'/sorgu ceza',d:"Trafik cezasÄ±"},
+    {no:106,c:'arac',n:'/sorgu puan',d:"Ehliyet puanÄ±"},
+    {no:107,c:'arac',n:'/sorgu alkol',d:"Alkol kaydÄ±"},
+    {no:108,c:'arac',n:'/sorgu radar',d:"Radar cezasÄ±"},
+    {no:109,c:'arac',n:'/sorgu otopark',d:"Otopark kaydÄ±"},
+    {no:110,c:'arac',n:'/sorgu gecis',d:"HGS/OGS geÃ§iÅŸ"},
+    {no:111,c:'tapu',n:'/sorgu tapu',d:"Tapu kaydÄ±"},
     {no:112,c:'tapu',n:'/sorgu kadastro',d:"Kadastro bilgisi"},
     {no:113,c:'tapu',n:'/sorgu parsel',d:"Parsel sorgula"},
     {no:114,c:'tapu',n:'/sorgu ada',d:"Ada bilgisi"},
@@ -212,158 +219,158 @@ const commands = [
     {no:116,c:'tapu',n:'/sorgu daire',d:"Daire bilgisi"},
     {no:117,c:'tapu',n:'/sorgu kat',d:"Kat bilgisi"},
     {no:118,c:'tapu',n:'/sorgu m2',d:"Metrekare"},
-    {no:119,c:'tapu',n:'/sorgu odasayisi',d:"Oda sayısı"},
-    {no:120,c:'tapu',n:'/sorgu binayasi',d:"Bina yaşı"},
-    {no:121,c:'tapu',n:'/sorgu kira',d:"Kira kaydı"},
-    {no:122,c:'tapu',n:'/sorgu kiraci',d:"Kiracı bilgisi"},
-    {no:123,c:'tapu',n:'/sorgu mulksahip',d:"Mülk sahibi"},
-    {no:124,c:'tapu',n:'/sorgu ipotek',d:"İpotek kaydı"},
-    {no:125,c:'tapu',n:'/sorgu emlak',d:"Emlak kaydı"},
-    {no:126,c:'tapu',n:'/sorgu imar',d:"İmar durumu"},
-    {no:127,c:'tapu',n:'/sorgu isyeri',d:"İş yeri kaydı"},
-    {no:128,c:'tapu',n:'/sorgu dukkan',d:"Dükkan kaydı"},
-    {no:129,c:'tapu',n:'/sorgu depo',d:"Depo kaydı"},
+    {no:119,c:'tapu',n:'/sorgu odasayisi',d:"Oda sayÄ±sÄ±"},
+    {no:120,c:'tapu',n:'/sorgu binayasi',d:"Bina yaÅŸÄ±"},
+    {no:121,c:'tapu',n:'/sorgu kira',d:"Kira kaydÄ±"},
+    {no:122,c:'tapu',n:'/sorgu kiraci',d:"KiracÄ± bilgisi"},
+    {no:123,c:'tapu',n:'/sorgu mulksahip',d:"MÃ¼lk sahibi"},
+    {no:124,c:'tapu',n:'/sorgu ipotek',d:"Ä°potek kaydÄ±"},
+    {no:125,c:'tapu',n:'/sorgu emlak',d:"Emlak kaydÄ±"},
+    {no:126,c:'tapu',n:'/sorgu imar',d:"Ä°mar durumu"},
+    {no:127,c:'tapu',n:'/sorgu isyeri',d:"Ä°ÅŸ yeri kaydÄ±"},
+    {no:128,c:'tapu',n:'/sorgu dukkan',d:"DÃ¼kkan kaydÄ±"},
+    {no:129,c:'tapu',n:'/sorgu depo',d:"Depo kaydÄ±"},
     {no:130,c:'tapu',n:'/sorgu arsa',d:"Arsa bilgisi"},
     {no:131,c:'tapu',n:'/sorgu tarla',d:"Tarla bilgisi"},
-    {no:132,c:'tapu',n:'/sorgu bahce',d:"Bahçe bilgisi"},
-    {no:133,c:'tapu',n:'/sorgu apartman',d:"Apartman kaydı"},
-    {no:134,c:'tapu',n:'/sorgu site',d:"Site kaydı"},
-    {no:135,c:'tapu',n:'/sorgu rezidans',d:"Rezidans kaydı"},
-    {no:136,c:'finans',n:'/sorgu banka',d:"Banka hesabı"},
+    {no:132,c:'tapu',n:'/sorgu bahce',d:"BahÃ§e bilgisi"},
+    {no:133,c:'tapu',n:'/sorgu apartman',d:"Apartman kaydÄ±"},
+    {no:134,c:'tapu',n:'/sorgu site',d:"Site kaydÄ±"},
+    {no:135,c:'tapu',n:'/sorgu rezidans',d:"Rezidans kaydÄ±"},
+    {no:136,c:'finans',n:'/sorgu banka',d:"Banka hesabÄ±"},
     {no:137,c:'finans',n:'/sorgu iban',d:"IBAN sorgula"},
     {no:138,c:'finans',n:'/sorgu bakiye',d:"Bakiye sorgula"},
     {no:139,c:'finans',n:'/sorgu hesaphareket',d:"Hesap hareketi"},
-    {no:140,c:'finans',n:'/sorgu kredi',d:"Kredi kaydı"},
-    {no:141,c:'finans',n:'/sorgu kredikarti',d:"Kredi kartı"},
-    {no:142,c:'finans',n:'/sorgu borc',d:"Borç sorgula"},
+    {no:140,c:'finans',n:'/sorgu kredi',d:"Kredi kaydÄ±"},
+    {no:141,c:'finans',n:'/sorgu kredikarti',d:"Kredi kartÄ±"},
+    {no:142,c:'finans',n:'/sorgu borc',d:"BorÃ§ sorgula"},
     {no:143,c:'finans',n:'/sorgu fatura',d:"Fatura sorgula"},
-    {no:144,c:'finans',n:'/sorgu maas',d:"Maaş bilgisi"},
-    {no:145,c:'finans',n:'/sorgu transfer',d:"Transfer geçmişi"},
-    {no:146,c:'finans',n:'/sorgu havale',d:"Havale kaydı"},
-    {no:147,c:'finans',n:'/sorgu eft',d:"EFT kaydı"},
-    {no:148,c:'finans',n:'/sorgu altin',d:"Altın hesabı"},
-    {no:149,c:'finans',n:'/sorgu doviz',d:"Döviz hesabı"},
-    {no:150,c:'finans',n:'/sorgu borsa',d:"Borsa kaydı"},
-    {no:151,c:'finans',n:'/sorgu kripto',d:"Kripto cüzdan"},
-    {no:152,c:'finans',n:'/sorgu sgk',d:"SGK kaydı"},
-    {no:153,c:'finans',n:'/sorgu bagkur',d:"Bağkur kaydı"},
+    {no:144,c:'finans',n:'/sorgu maas',d:"MaaÅŸ bilgisi"},
+    {no:145,c:'finans',n:'/sorgu transfer',d:"Transfer geÃ§miÅŸi"},
+    {no:146,c:'finans',n:'/sorgu havale',d:"Havale kaydÄ±"},
+    {no:147,c:'finans',n:'/sorgu eft',d:"EFT kaydÄ±"},
+    {no:148,c:'finans',n:'/sorgu altin',d:"AltÄ±n hesabÄ±"},
+    {no:149,c:'finans',n:'/sorgu doviz',d:"DÃ¶viz hesabÄ±"},
+    {no:150,c:'finans',n:'/sorgu borsa',d:"Borsa kaydÄ±"},
+    {no:151,c:'finans',n:'/sorgu kripto',d:"Kripto cÃ¼zdan"},
+    {no:152,c:'finans',n:'/sorgu sgk',d:"SGK kaydÄ±"},
+    {no:153,c:'finans',n:'/sorgu bagkur',d:"BaÄŸkur kaydÄ±"},
     {no:154,c:'finans',n:'/sorgu emekli',d:"Emeklilik durumu"},
-    {no:155,c:'finans',n:'/sorgu vergi',d:"Vergi kaydı"},
+    {no:155,c:'finans',n:'/sorgu vergi',d:"Vergi kaydÄ±"},
     {no:156,c:'finans',n:'/sorgu gelirvergisi',d:"Gelir vergisi"},
-    {no:157,c:'finans',n:'/sorgu kdv',d:"KDV kaydı"},
-    {no:158,c:'finans',n:'/sorgu harç',d:"Harç kaydı"},
+    {no:157,c:'finans',n:'/sorgu kdv',d:"KDV kaydÄ±"},
+    {no:158,c:'finans',n:'/sorgu harÃ§',d:"HarÃ§ kaydÄ±"},
     {no:159,c:'finans',n:'/sorgu makbuz',d:"Makbuz sorgula"},
     {no:160,c:'finans',n:'/sorgu dekont',d:"Dekont sorgula"},
-    {no:161,c:'finans',n:'/sorgu haciz',d:"Haciz kaydı"},
-    {no:162,c:'finans',n:'/sorgu icra',d:"İcra dosyası"},
-    {no:163,c:'finans',n:'/sorgu iflas',d:"İflas kaydı"},
+    {no:161,c:'finans',n:'/sorgu haciz',d:"Haciz kaydÄ±"},
+    {no:162,c:'finans',n:'/sorgu icra',d:"Ä°cra dosyasÄ±"},
+    {no:163,c:'finans',n:'/sorgu iflas',d:"Ä°flas kaydÄ±"},
     {no:164,c:'finans',n:'/sorgu konkordato',d:"Konkordato"},
-    {no:165,c:'finans',n:'/sorgu teminat',d:"Teminat kaydı"},
-    {no:166,c:'egitim',n:'/sorgu ogrenim',d:"Öğrenim durumu"},
+    {no:165,c:'finans',n:'/sorgu teminat',d:"Teminat kaydÄ±"},
+    {no:166,c:'egitim',n:'/sorgu ogrenim',d:"Ã–ÄŸrenim durumu"},
     {no:167,c:'egitim',n:'/sorgu okul',d:"Okul bilgisi"},
     {no:168,c:'egitim',n:'/sorgu diploma',d:"Diploma sorgula"},
     {no:169,c:'egitim',n:'/sorgu transkript',d:"Transkript"},
-    {no:170,c:'egitim',n:'/sorgu oss',d:"ÖSS/YKS kaydı"},
-    {no:171,c:'egitim',n:'/sorgu lgs',d:"LGS kaydı"},
-    {no:172,c:'egitim',n:'/sorgu universite',d:"Üniversite kaydı"},
+    {no:170,c:'egitim',n:'/sorgu oss',d:"Ã–SS/YKS kaydÄ±"},
+    {no:171,c:'egitim',n:'/sorgu lgs',d:"LGS kaydÄ±"},
+    {no:172,c:'egitim',n:'/sorgu universite',d:"Ãœniversite kaydÄ±"},
     {no:173,c:'egitim',n:'/sorgu lisans',d:"Lisans bilgisi"},
-    {no:174,c:'egitim',n:'/sorgu yukseklisans',d:"Yüksek lisans"},
-    {no:175,c:'egitim',n:'/sorgu doktora',d:"Doktora kaydı"},
+    {no:174,c:'egitim',n:'/sorgu yukseklisans',d:"YÃ¼ksek lisans"},
+    {no:175,c:'egitim',n:'/sorgu doktora',d:"Doktora kaydÄ±"},
     {no:176,c:'egitim',n:'/sorgu sertifika',d:"Sertifika sorgula"},
-    {no:177,c:'egitim',n:'/sorgu kurs',d:"Kurs kaydı"},
-    {no:178,c:'egitim',n:'/sorgu yabanci',d:"Yabancı dil"},
+    {no:177,c:'egitim',n:'/sorgu kurs',d:"Kurs kaydÄ±"},
+    {no:178,c:'egitim',n:'/sorgu yabanci',d:"YabancÄ± dil"},
     {no:179,c:'egitim',n:'/sorgu ehliyet',d:"Ehliyet bilgisi"},
     {no:180,c:'egitim',n:'/sorgu src',d:"SRC belgesi"},
     {no:181,c:'egitim',n:'/sorgu psikoteknik',d:"Psikoteknik"},
     {no:182,c:'egitim',n:'/sorgu adr',d:"ADR belgesi"},
-    {no:183,c:'egitim',n:'/sorgu kaptanlik',d:"Kaptanlık"},
+    {no:183,c:'egitim',n:'/sorgu kaptanlik',d:"KaptanlÄ±k"},
     {no:184,c:'egitim',n:'/sorgu pilotluk',d:"Pilotluk"},
-    {no:185,c:'egitim',n:'/sorgu dalgic',d:"Dalgıç belgesi"},
-    {no:186,c:'saglik',n:'/sorgu saglik',d:"Sağlık kaydı"},
-    {no:187,c:'saglik',n:'/sorgu hastane',d:"Hastane kaydı"},
-    {no:188,c:'saglik',n:'/sorgu recete',d:"Reçete sorgula"},
+    {no:185,c:'egitim',n:'/sorgu dalgic',d:"DalgÄ±Ã§ belgesi"},
+    {no:186,c:'saglik',n:'/sorgu saglik',d:"SaÄŸlÄ±k kaydÄ±"},
+    {no:187,c:'saglik',n:'/sorgu hastane',d:"Hastane kaydÄ±"},
+    {no:188,c:'saglik',n:'/sorgu recete',d:"ReÃ§ete sorgula"},
     {no:189,c:'saglik',n:'/sorgu tahlil',d:"Tahlil sonucu"},
-    {no:190,c:'saglik',n:'/sorgu rontgen',d:"Röntgen kaydı"},
-    {no:191,c:'saglik',n:'/sorgu mr',d:"MR kaydı"},
+    {no:190,c:'saglik',n:'/sorgu rontgen',d:"RÃ¶ntgen kaydÄ±"},
+    {no:191,c:'saglik',n:'/sorgu mr',d:"MR kaydÄ±"},
     {no:192,c:'saglik',n:'/sorgu tomografi',d:"Tomografi"},
-    {no:193,c:'saglik',n:'/sorgu ameliyat',d:"Ameliyat kaydı"},
-    {no:194,c:'saglik',n:'/sorgu asi',d:"Aşı kaydı"},
-    {no:195,c:'saglik',n:'/sorgu pandemi',d:"Pandemi kaydı"},
-    {no:196,c:'saglik',n:'/sorgu engelli',d:"Engelli kaydı"},
-    {no:197,c:'saglik',n:'/sorgu malul',d:"Malullük"},
-    {no:198,c:'saglik',n:'/sorgu psikiyatri',d:"Psikiyatri kaydı"},
-    {no:199,c:'saglik',n:'/sorgu ilac',d:"İlaç kaydı"},
-    {no:200,c:'saglik',n:'/sorgu alerji',d:"Alerji kaydı"},
-    {no:201,c:'saglik',n:'/sorgu kan',d:"Kan kaydı"},
+    {no:193,c:'saglik',n:'/sorgu ameliyat',d:"Ameliyat kaydÄ±"},
+    {no:194,c:'saglik',n:'/sorgu asi',d:"AÅŸÄ± kaydÄ±"},
+    {no:195,c:'saglik',n:'/sorgu pandemi',d:"Pandemi kaydÄ±"},
+    {no:196,c:'saglik',n:'/sorgu engelli',d:"Engelli kaydÄ±"},
+    {no:197,c:'saglik',n:'/sorgu malul',d:"MalullÃ¼k"},
+    {no:198,c:'saglik',n:'/sorgu psikiyatri',d:"Psikiyatri kaydÄ±"},
+    {no:199,c:'saglik',n:'/sorgu ilac',d:"Ä°laÃ§ kaydÄ±"},
+    {no:200,c:'saglik',n:'/sorgu alerji',d:"Alerji kaydÄ±"},
+    {no:201,c:'saglik',n:'/sorgu kan',d:"Kan kaydÄ±"},
     {no:202,c:'saglik',n:'/sorgu nakil',d:"Organ nakli"},
-    {no:203,c:'saglik',n:'/sorgu dializ',d:"Diyaliz kaydı"},
-    {no:204,c:'saglik',n:'/sorgu kanser',d:"Kanser kaydı"},
-    {no:205,c:'saglik',n:'/sorgu sigortasaglik',d:"Sağlık sigortası"},
+    {no:203,c:'saglik',n:'/sorgu dializ',d:"Diyaliz kaydÄ±"},
+    {no:204,c:'saglik',n:'/sorgu kanser',d:"Kanser kaydÄ±"},
+    {no:205,c:'saglik',n:'/sorgu sigortasaglik',d:"SaÄŸlÄ±k sigortasÄ±"},
     {no:206,c:'is',n:'/sorgu meslek',d:"Meslek bilgisi"},
-    {no:207,c:'is',n:'/sorgu isyeri',d:"İş yeri kaydı"},
-    {no:208,c:'is',n:'/sorgu sgkis',d:"SGK iş kaydı"},
-    {no:209,c:'is',n:'/sorgu istencikis',d:"İşten çıkış"},
-    {no:210,c:'is',n:'/sorgu kidem',d:"Kıdem tazminatı"},
-    {no:211,c:'is',n:'/sorgu ihbar',d:"İhbar tazminatı"},
-    {no:212,c:'is',n:'/sorgu maas',d:"Maaş kaydı"},
+    {no:207,c:'is',n:'/sorgu isyeri',d:"Ä°ÅŸ yeri kaydÄ±"},
+    {no:208,c:'is',n:'/sorgu sgkis',d:"SGK iÅŸ kaydÄ±"},
+    {no:209,c:'is',n:'/sorgu istencikis',d:"Ä°ÅŸten Ã§Ä±kÄ±ÅŸ"},
+    {no:210,c:'is',n:'/sorgu kidem',d:"KÄ±dem tazminatÄ±"},
+    {no:211,c:'is',n:'/sorgu ihbar',d:"Ä°hbar tazminatÄ±"},
+    {no:212,c:'is',n:'/sorgu maas',d:"MaaÅŸ kaydÄ±"},
     {no:213,c:'is',n:'/sorgu bordro',d:"Bordro sorgula"},
-    {no:214,c:'is',n:'/sorgu vergilevha',d:"Vergi levhası"},
+    {no:214,c:'is',n:'/sorgu vergilevha',d:"Vergi levhasÄ±"},
     {no:215,c:'is',n:'/sorgu ticaret',d:"Ticaret sicil"},
-    {no:216,c:'is',n:'/sorgu oda',d:"Oda kaydı"},
-    {no:217,c:'is',n:'/sorgu esnaf',d:"Esnaf kaydı"},
-    {no:218,c:'is',n:'/sorgu sirket',d:"Şirket kaydı"},
-    {no:219,c:'is',n:'/sorgu ortak',d:"Ortaklık kaydı"},
-    {no:220,c:'is',n:'/sorgu mersis',d:"MERSİS kaydı"},
+    {no:216,c:'is',n:'/sorgu oda',d:"Oda kaydÄ±"},
+    {no:217,c:'is',n:'/sorgu esnaf',d:"Esnaf kaydÄ±"},
+    {no:218,c:'is',n:'/sorgu sirket',d:"Åirket kaydÄ±"},
+    {no:219,c:'is',n:'/sorgu ortak',d:"OrtaklÄ±k kaydÄ±"},
+    {no:220,c:'is',n:'/sorgu mersis',d:"MERSÄ°S kaydÄ±"},
     {no:221,c:'is',n:'/sorgu marka',d:"Marka tescili"},
-    {no:222,c:'is',n:'/sorgu patent',d:"Patent kaydı"},
-    {no:223,c:'is',n:'/sorgu lisans',d:"Lisans kaydı"},
-    {no:224,c:'is',n:'/sorgu ihracat',d:"İhracat kaydı"},
-    {no:225,c:'is',n:'/sorgu ithalat',d:"İthalat kaydı"},
-    {no:226,c:'goc',n:'/sorgu pasaport',d:"Pasaport kaydı"},
-    {no:227,c:'goc',n:'/sorgu vize',d:"Vize kaydı"},
-    {no:228,c:'goc',n:'/sorgu giris',d:"Giriş kaydı"},
-    {no:229,c:'goc',n:'/sorgu cikis',d:"Çıkış kaydı"},
-    {no:230,c:'goc',n:'/sorgu yurtdisi',d:"Yurt dışı kaydı"},
+    {no:222,c:'is',n:'/sorgu patent',d:"Patent kaydÄ±"},
+    {no:223,c:'is',n:'/sorgu lisans',d:"Lisans kaydÄ±"},
+    {no:224,c:'is',n:'/sorgu ihracat',d:"Ä°hracat kaydÄ±"},
+    {no:225,c:'is',n:'/sorgu ithalat',d:"Ä°thalat kaydÄ±"},
+    {no:226,c:'goc',n:'/sorgu pasaport',d:"Pasaport kaydÄ±"},
+    {no:227,c:'goc',n:'/sorgu vize',d:"Vize kaydÄ±"},
+    {no:228,c:'goc',n:'/sorgu giris',d:"GiriÅŸ kaydÄ±"},
+    {no:229,c:'goc',n:'/sorgu cikis',d:"Ã‡Ä±kÄ±ÅŸ kaydÄ±"},
+    {no:230,c:'goc',n:'/sorgu yurtdisi',d:"Yurt dÄ±ÅŸÄ± kaydÄ±"},
     {no:231,c:'goc',n:'/sorgu oturma',d:"Oturma izni"},
-    {no:232,c:'goc',n:'/sorgu calismaizin',d:"Çalışma izni"},
-    {no:233,c:'goc',n:'/sorgu vatandaslik',d:"Vatandaşlık"},
+    {no:232,c:'goc',n:'/sorgu calismaizin',d:"Ã‡alÄ±ÅŸma izni"},
+    {no:233,c:'goc',n:'/sorgu vatandaslik',d:"VatandaÅŸlÄ±k"},
     {no:234,c:'goc',n:'/sorgu mavi_kart',d:"Mavi Kart"},
-    {no:235,c:'goc',n:'/sorgu yesil_kart',d:"Yeşil Kart"},
-    {no:236,c:'goc',n:'/sorgu sinirdisi',d:"Sınır dışı kaydı"},
-    {no:237,c:'goc',n:'/sorgu goc',d:"Göç kaydı"},
-    {no:238,c:'goc',n:'/sorgu iltica',d:"İltica kaydı"},
-    {no:239,c:'goc',n:'/sorgu multeci',d:"Mülteci kaydı"},
-    {no:240,c:'goc',n:'/sorgu kimlik',d:"Kimlik kaydı"},
-    {no:241,c:'goc',n:'/sorgu gecici',d:"Geçici kimlik"},
-    {no:242,c:'goc',n:'/sorgu ikametizin',d:"İkamet izni"},
-    {no:243,c:'goc',n:'/sorgu seyahat',d:"Seyahat kaydı"},
-    {no:244,c:'goc',n:'/sorgu bilet',d:"Bilet kaydı"},
-    {no:245,c:'goc',n:'/sorgu ucus',d:"Uçuş kaydı"},
+    {no:235,c:'goc',n:'/sorgu yesil_kart',d:"YeÅŸil Kart"},
+    {no:236,c:'goc',n:'/sorgu sinirdisi',d:"SÄ±nÄ±r dÄ±ÅŸÄ± kaydÄ±"},
+    {no:237,c:'goc',n:'/sorgu goc',d:"GÃ¶Ã§ kaydÄ±"},
+    {no:238,c:'goc',n:'/sorgu iltica',d:"Ä°ltica kaydÄ±"},
+    {no:239,c:'goc',n:'/sorgu multeci',d:"MÃ¼lteci kaydÄ±"},
+    {no:240,c:'goc',n:'/sorgu kimlik',d:"Kimlik kaydÄ±"},
+    {no:241,c:'goc',n:'/sorgu gecici',d:"GeÃ§ici kimlik"},
+    {no:242,c:'goc',n:'/sorgu ikametizin',d:"Ä°kamet izni"},
+    {no:243,c:'goc',n:'/sorgu seyahat',d:"Seyahat kaydÄ±"},
+    {no:244,c:'goc',n:'/sorgu bilet',d:"Bilet kaydÄ±"},
+    {no:245,c:'goc',n:'/sorgu ucus',d:"UÃ§uÅŸ kaydÄ±"},
     {no:246,c:'sistem',n:'/sorgu log',d:"Sistem logu"},
-    {no:247,c:'sistem',n:'/sorgu kayit',d:"Kayıt geçmişi"},
-    {no:248,c:'sistem',n:'/sorgu islem',d:"İşlem geçmişi"},
-    {no:249,c:'sistem',n:'/sorgu randevu',d:"Randevu kaydı"},
-    {no:250,c:'sistem',n:'/sorgu basvuru',d:"Başvuru kaydı"},
-    {no:251,c:'sistem',n:'/sorgu talep',d:"Talep kaydı"},
-    {no:252,c:'sistem',n:'/sorgu sikayet',d:"Şikayet kaydı"},
+    {no:247,c:'sistem',n:'/sorgu kayit',d:"KayÄ±t geÃ§miÅŸi"},
+    {no:248,c:'sistem',n:'/sorgu islem',d:"Ä°ÅŸlem geÃ§miÅŸi"},
+    {no:249,c:'sistem',n:'/sorgu randevu',d:"Randevu kaydÄ±"},
+    {no:250,c:'sistem',n:'/sorgu basvuru',d:"BaÅŸvuru kaydÄ±"},
+    {no:251,c:'sistem',n:'/sorgu talep',d:"Talep kaydÄ±"},
+    {no:252,c:'sistem',n:'/sorgu sikayet',d:"Åikayet kaydÄ±"},
     {no:253,c:'sistem',n:'/sorgu belge',d:"Belge sorgula"},
-    {no:254,c:'sistem',n:'/sorgu dijital',d:"Dijital kayıt"},
-    {no:255,c:'sistem',n:'/sorgu eposta',d:"E-posta kaydı"},
+    {no:254,c:'sistem',n:'/sorgu dijital',d:"Dijital kayÄ±t"},
+    {no:255,c:'sistem',n:'/sorgu eposta',d:"E-posta kaydÄ±"},
     {no:256,c:'sistem',n:'/sorgu ip',d:"IP sorgula"},
-    {no:257,c:'sistem',n:'/sorgu cihaz',d:"Cihaz kaydı"},
-    {no:258,c:'sistem',n:'/sorgu konum',d:"Konum kaydı"},
-    {no:259,c:'sistem',n:'/sorgu gps',d:"GPS kaydı"},
-    {no:260,c:'sistem',n:'/sorgu kamera',d:"Kamera kaydı"},
-    {no:261,c:'sistem',n:'/sorgu plaka_tanima',d:"Plaka tanıma"},
-    {no:262,c:'sistem',n:'/sorgu yuz',d:"Yüz tanıma"},
+    {no:257,c:'sistem',n:'/sorgu cihaz',d:"Cihaz kaydÄ±"},
+    {no:258,c:'sistem',n:'/sorgu konum',d:"Konum kaydÄ±"},
+    {no:259,c:'sistem',n:'/sorgu gps',d:"GPS kaydÄ±"},
+    {no:260,c:'sistem',n:'/sorgu kamera',d:"Kamera kaydÄ±"},
+    {no:261,c:'sistem',n:'/sorgu plaka_tanima',d:"Plaka tanÄ±ma"},
+    {no:262,c:'sistem',n:'/sorgu yuz',d:"YÃ¼z tanÄ±ma"},
     {no:263,c:'sistem',n:'/sorgu parmak',d:"Parmak izi"},
-    {no:264,c:'sistem',n:'/sorgu dna',d:"DNA kaydı"},
-    {no:265,c:'sistem',n:'/sorgu ses',d:"Ses kaydı"},
-    {no:266,c:'sistem',n:'/sorgu cagri',d:"Çağrı kaydı"},
-    {no:267,c:'sistem',n:'/sorgu sms',d:"SMS kaydı"},
-    {no:268,c:'sistem',n:'/sorgu whatsapp',d:"WhatsApp kaydı"},
+    {no:264,c:'sistem',n:'/sorgu dna',d:"DNA kaydÄ±"},
+    {no:265,c:'sistem',n:'/sorgu ses',d:"Ses kaydÄ±"},
+    {no:266,c:'sistem',n:'/sorgu cagri',d:"Ã‡aÄŸrÄ± kaydÄ±"},
+    {no:267,c:'sistem',n:'/sorgu sms',d:"SMS kaydÄ±"},
+    {no:268,c:'sistem',n:'/sorgu whatsapp',d:"WhatsApp kaydÄ±"},
     {no:269,c:'sistem',n:'/sorgu sosyalmedya',d:"Sosyal medya"},
-    {no:270,c:'sistem',n:'/sorgu yardim',d:"Yardım menüsü"}
+    {no:270,c:'sistem',n:'/sorgu yardim',d:"YardÄ±m menÃ¼sÃ¼"}
   ];
 const $=id=>document.getElementById(id);
 const ready=(fn)=>document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn,{once:true}):fn();
@@ -374,41 +381,50 @@ function toggleMenu(open) {
 function go(id) { const el=$(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); toggleMenu(false); }
 function toast(msg) { const t=$('toast'); if(!t)return; t.textContent=msg; t.classList.add('show'); clearTimeout(window._alexToast); window._alexToast=setTimeout(()=>t.classList.remove('show'),2200); }
 function renderCategoryOptions() {
- const cats=[['all','Tümü'],['kimlik','Kimlik & Nüfus'],['iletisim','İletişim & Sosyal'],['hukuk','Adli & Güvenlik'],['arac','Araç & Trafik'],['tapu','Tapu & Gayrimenkul'],['finans','Finans & Vergi'],['egitim','Eğitim & Belgeler'],['saglik','Sağlık'],['is','İş & Ticaret'],['goc','Pasaport & Göç'],['sistem','Sistem & Dijital']];
+ const cats=[['all','TÃ¼mÃ¼'],['kimlik','Kimlik & NÃ¼fus'],['iletisim','Ä°letiÅŸim & Sosyal'],['hukuk','Adli & GÃ¼venlik'],['arac','AraÃ§ & Trafik'],['tapu','Tapu & Gayrimenkul'],['finans','Finans & Vergi'],['egitim','EÄŸitim & Belgeler'],['saglik','SaÄŸlÄ±k'],['is','Ä°ÅŸ & Ticaret'],['goc','Pasaport & GÃ¶Ã§'],['sistem','Sistem & Dijital']];
  $('category').innerHTML=cats.map(([v,n])=>`<option value="${v}">${n}</option>`).join('');
 }
 function runCommand(cmd) {
- $('consoleBody').textContent='[ALEXIX DEMO] '+cmd+'\n\nKomut arayüzü başarıyla yanıt verdi.\nGerçek kişi verisi veya yetkisiz erişim gerçekleştirilmedi.';
- toast('Komut çalıştırıldı: '+cmd);
+ $('consoleBody').textContent='[ALEXIX DEMO] '+cmd+'\n\nKomut arayÃ¼zÃ¼ baÅŸarÄ±yla yanÄ±t verdi.\nGerÃ§ek kiÅŸi verisi veya yetkisiz eriÅŸim gerÃ§ekleÅŸtirilmedi.';
+ toast('Komut Ã§alÄ±ÅŸtÄ±rÄ±ldÄ±: '+cmd);
 }
 function renderCommands(cat) {
  const q=($('search').value||'').toLocaleLowerCase('tr-TR').trim();
  const category=cat || $('category').value || 'all'; $('category').value=category;
  const list=commands.filter(x=>(category==='all'||x.c===category)&&((x.n+' '+x.d).toLocaleLowerCase('tr-TR').includes(q)));
- $('commandsList').innerHTML=list.length?list.map((x,i)=>`<div class="cmd"><div class="cmd-no">#${x.no}</div><div class="cmd-main"><code>${x.n}</code><small>${x.d}</small></div><button type="button" class="run" data-index="${i}">ÇALIŞTIR</button></div>`).join(''):'<div class="empty">Sonuç bulunamadı.</div>';
+ $('commandsList').innerHTML=list.length?list.map((x,i)=>`<div class="cmd"><div class="cmd-no">#${x.no}</div><div class="cmd-main"><code>${x.n}</code><small>${x.d}</small></div><button type="button" class="run" data-index="${i}">Ã‡ALIÅTIR</button></div>`).join(''):'<div class="empty">SonuÃ§ bulunamadÄ±.</div>';
  $('commandsList').querySelectorAll('.run').forEach(b=>b.addEventListener('click',()=>runCommand(list[+b.dataset.index].n)));
  document.querySelectorAll('.catnav').forEach(b=>b.classList.toggle('active',b.dataset.cat===category));
 }
 function openModal(type) {
- $('modal').classList.add('show'); $('modalTitle').textContent=type==='register'?'Kayıt':'Giriş';
- $('modalContent').innerHTML=type==='register'?'<label class="field">Kullanıcı adı<input id="authUser"></label><label class="field">E-posta<input id="authEmail" type="email"></label><label class="field">Şifre<input id="authPass" type="password"></label><button type="button" class="btn" id="authSubmit">KAYIT OL</button>':'<label class="field">Kullanıcı adı<input id="authUser"></label><label class="field">Şifre<input id="authPass" type="password"></label><button type="button" class="btn" id="authSubmit">GİRİŞ YAP</button>';
- $('authSubmit').onclick=()=>{closeModal();toast((type==='register'?'Kayıt':'Giriş')+' demo olarak tamamlandı.')};
+ $('modal').classList.add('show'); $('modalTitle').textContent=type==='register'?'KayÄ±t':'GiriÅŸ';
+ $('modalContent').innerHTML=type==='register'?'<label class="field">KullanÄ±cÄ± adÄ±<input id="authUser"></label><label class="field">E-posta<input id="authEmail" type="email"></label><label class="field">Åifre<input id="authPass" type="password"></label><button type="button" class="btn" id="authSubmit">KAYIT OL</button>':'<label class="field">KullanÄ±cÄ± adÄ±<input id="authUser"></label><label class="field">Åifre<input id="authPass" type="password"></label><button type="button" class="btn" id="authSubmit">GÄ°RÄ°Å YAP</button>';
+ $('authSubmit').onclick=()=>{closeModal();toast((type==='register'?'KayÄ±t':'GiriÅŸ')+' demo olarak tamamlandÄ±.')};
 }
 function closeModal(){ $('modal').classList.remove('show'); }
 ready(()=>{
  renderCategoryOptions(); renderCommands();
- $('menuBtn')?.addEventListener('click',()=>toggleMenu(true));
+ $('menuBtn')?.addEventListener('click',()=>{
+   toggleMenu(true);
+   // â˜° menÃ¼sÃ¼ne basÄ±nca doÄŸrudan Komutlar aÃ§Ä±lÄ±r.
+   $('mainNav').hidden=true;
+   $('commandCategories').hidden=true;
+   $('commandItems').hidden=false;
+   $('commandItemsTitle').textContent='KOMUTLAR';
+   $('drawerCommandList').innerHTML=commands.map(x=>`<button type="button" class="mini-command" data-command-no="${x.no}"><span><code>${x.n}</code><small>${x.d}</small></span><span class="mini-arrow">â€º</span></button>`).join('');
+   $('drawerCommandList').querySelectorAll('[data-command-no]').forEach(b=>b.onclick=()=>openCommandEntry(commands.find(x=>x.no==b.dataset.commandNo)));
+ });
  $('drawerClose')?.addEventListener('click',()=>toggleMenu(false));
  $('overlay').addEventListener('click',()=>toggleMenu(false));
  $('loginBtn').onclick=()=>openModal('login'); $('registerBtn').onclick=()=>openModal('register');
  $('pricesBtn').onclick=()=>go('prices'); $('commandsBtn').onclick=()=>go('commands'); $('panelLoginBtn').onclick=()=>openModal('login');
- function purchasePlan(name,price){ $('modalTitle').textContent='PAKET SATIN AL'; $('modalContent').innerHTML='<div class="purchase-box"><h3>'+name+' — '+price+'</h3><p>Paket satın alma ve Alexix ulaşım için:</p><a class="contact-phone" href="tel:+573247755324">+57 324 7755324</a><p class="muted">Bu demo sitede ödeme alınmaz. Satın alma için yukarıdaki numaradan Alexix’e ulaşabilirsin.</p></div><button type="button" class="btn" id="purchaseClose">KAPAT</button>'; $('modal').classList.add('show'); $('purchaseClose').onclick=closeModal; } $('planStart').onclick=()=>purchasePlan('BAŞLANGIÇ','99 TL'); $('planVip').onclick=()=>purchasePlan('VIP','249 TL'); $('planPremium').onclick=()=>purchasePlan('PREMIUM','499 TL');
- $('sendBtn').onclick=()=>{const n=$('name').value.trim(),e=$('email').value.trim(),m=$('message').value.trim();if(!n||!e||!m)return toast('Lütfen tüm alanları doldur.');toast('Mesaj demo olarak gönderildi.');$('name').value='';$('email').value='';$('message').value='';};
+ function purchasePlan(name,price){ $('modalTitle').textContent='PAKET SATIN AL'; $('modalContent').innerHTML='<div class="purchase-box"><h3>'+name+' â€” '+price+'</h3><p>Paket satÄ±n alma ve Alexix ulaÅŸÄ±m iÃ§in:</p><a class="contact-phone" href="tel:+573247755324">+57 324 7755324</a><p class="muted">Bu demo sitede Ã¶deme alÄ±nmaz. SatÄ±n alma iÃ§in yukarÄ±daki numaradan Alexixâ€™e ulaÅŸabilirsin.</p></div><button type="button" class="btn" id="purchaseClose">KAPAT</button>'; $('modal').classList.add('show'); $('purchaseClose').onclick=closeModal; } $('planStart').onclick=()=>purchasePlan('BAÅLANGIÃ‡','99 TL'); $('planVip').onclick=()=>purchasePlan('VIP','249 TL'); $('planPremium').onclick=()=>purchasePlan('PREMIUM','499 TL');
+ $('sendBtn').onclick=()=>{const n=$('name').value.trim(),e=$('email').value.trim(),m=$('message').value.trim();if(!n||!e||!m)return toast('LÃ¼tfen tÃ¼m alanlarÄ± doldur.');toast('Mesaj demo olarak gÃ¶nderildi.');$('name').value='';$('email').value='';$('message').value='';};
  $('search').oninput=()=>renderCommands(); $('category').onchange=()=>renderCommands();
 
- // Hiyerarşik Komut menüsü: Komutlar -> Kategori -> Komut -> Giriş/Çalıştır
- const catNames={all:'Tüm Komutlar',kimlik:'Kimlik & Nüfus',iletisim:'İletişim & Sosyal',hukuk:'Adli & Güvenlik',arac:'Araç & Trafik',tapu:'Tapu & Gayrimenkul',finans:'Finans & Vergi',egitim:'Eğitim & Belgeler',saglik:'Sağlık',is:'İş & Ticaret',goc:'Pasaport & Göç',sistem:'Sistem & Dijital'};
- const catIcons={all:'☷',kimlik:'👤',iletisim:'☎',hukuk:'⚖',arac:'🚗',tapu:'⌂',finans:'₺',egitim:'🎓',saglik:'✚',is:'▣',goc:'✈',sistem:'⌘'};
+ // HiyerarÅŸik Komut menÃ¼sÃ¼: Komutlar -> Kategori -> Komut -> GiriÅŸ/Ã‡alÄ±ÅŸtÄ±r
+ const catNames={all:'TÃ¼m Komutlar',kimlik:'Kimlik & NÃ¼fus',iletisim:'Ä°letiÅŸim & Sosyal',hukuk:'Adli & GÃ¼venlik',arac:'AraÃ§ & Trafik',tapu:'Tapu & Gayrimenkul',finans:'Finans & Vergi',egitim:'EÄŸitim & Belgeler',saglik:'SaÄŸlÄ±k',is:'Ä°ÅŸ & Ticaret',goc:'Pasaport & GÃ¶Ã§',sistem:'Sistem & Dijital'};
+ const catIcons={all:'â˜·',kimlik:'ğŸ‘¤',iletisim:'â˜',hukuk:'âš–',arac:'ğŸš—',tapu:'âŒ‚',finans:'â‚º',egitim:'ğŸ“',saglik:'âœš',is:'â–£',goc:'âœˆ',sistem:'âŒ˜'};
  function drawerCategoryList(){
    const box=$('drawerCategories'); if(!box)return;
    const counts={}; commands.forEach(x=>counts[x.c]=(counts[x.c]||0)+1);
@@ -419,24 +435,24 @@ ready(()=>{
    $('commandCategories').hidden=true; $('commandItems').hidden=false;
    $('commandItemsTitle').textContent=catNames[cat]||'KOMUTLAR';
    const list=cat==='all'?commands:commands.filter(x=>x.c===cat);
-   $('drawerCommandList').innerHTML=list.map(x=>`<button type="button" class="mini-command" data-command-no="${x.no}"><span><code>${x.n}</code><small>${x.d}</small></span><span class="mini-arrow">›</span></button>`).join('');
+   $('drawerCommandList').innerHTML=list.map(x=>`<button type="button" class="mini-command" data-command-no="${x.no}"><span><code>${x.n}</code><small>${x.d}</small></span><span class="mini-arrow">â€º</span></button>`).join('');
    $('drawerCommandList').querySelectorAll('[data-command-no]').forEach(b=>b.onclick=()=>openCommandEntry(list.find(x=>x.no==b.dataset.commandNo)));
  }
  function openCommandEntry(cmd){
    if(!cmd)return;
    $('modalTitle').textContent=cmd.n;
-   $('modalContent').innerHTML=`<div class="command-entry"><p>${cmd.d}</p><input class="command-input" id="commandValue" placeholder="Giriş değeri (demo)"><button type="button" class="btn command-run" id="commandSubmit">ÇALIŞTIR</button><div class="demo-safe">Bu alan yalnızca güvenli arayüz demosudur. Gerçek kişi verilerine erişim veya yetkisiz sorgu yapılmaz.</div></div>`;
+   $('modalContent').innerHTML=`<div class="command-entry"><p>${cmd.d}</p><input class="command-input" id="commandValue" placeholder="GiriÅŸ deÄŸeri (demo)"><button type="button" class="btn command-run" id="commandSubmit">Ã‡ALIÅTIR</button><div class="demo-safe">Bu alan yalnÄ±zca gÃ¼venli arayÃ¼z demosudur. GerÃ§ek kiÅŸi verilerine eriÅŸim veya yetkisiz sorgu yapÄ±lmaz.</div></div>`;
    $('modal').classList.add('show');
    $('commandSubmit').onclick=()=>{const v=$('commandValue').value.trim(); closeModal(); toggleMenu(false); runCommand(cmd.n+(v?' '+v:''));};
  }
  drawerCategoryList();
  $('commandsMenuBtn').onclick=()=>{
-   // Komutlar'a basınca menünün içinde doğrudan 270 komutun tamamını göster.
+   // Komutlar'a basÄ±nca menÃ¼nÃ¼n iÃ§inde doÄŸrudan 270 komutun tamamÄ±nÄ± gÃ¶ster.
    $('mainNav').hidden=true;
    $('commandCategories').hidden=true;
    $('commandItems').hidden=false;
    $('commandItemsTitle').textContent='270 KOMUT';
-   $('drawerCommandList').innerHTML=commands.map(x=>`<button type="button" class="mini-command" data-command-no="${x.no}"><span><code>${x.n}</code><small>${x.d}</small></span><span class="mini-arrow">›</span></button>`).join('');
+   $('drawerCommandList').innerHTML=commands.map(x=>`<button type="button" class="mini-command" data-command-no="${x.no}"><span><code>${x.n}</code><small>${x.d}</small></span><span class="mini-arrow">â€º</span></button>`).join('');
    $('drawerCommandList').querySelectorAll('[data-command-no]').forEach(b=>b.onclick=()=>openCommandEntry(commands.find(x=>x.no==b.dataset.commandNo)));
  };
  $('backToMain').onclick=()=>{$('commandCategories').hidden=true;$('commandItems').hidden=true;$('mainNav').hidden=false;};
@@ -455,20 +471,18 @@ ready(()=>{
 <script id="alexix-music-js">
 (function(){
 'use strict';
-// Gerçek ticari kayıtları dosyanın içine kopyalamıyoruz. Seçilen şarkı,
-// resmi/normal YouTube aramasında açılır; böylece gerçek kayıt çalar.
+// SeÃ§ilen ÅŸarkÄ±, panel iÃ§indeki YouTube oynatÄ±cÄ±sÄ±nda aÃ§Ä±lÄ±r; sayfadan Ã§Ä±kÄ±lmaz.
 const tracks=[
- ['Bir Derdim Var','Mor ve Ötesi'],['Aşkın Mapushane','Haluk Levent'],['Gidiyorum','Mor ve Ötesi'],['Yalnızlık Senfonisi','Pinhani'],['Unut Beni','Model'],
- ['APT.','ROSÉ Bruno Mars'],['Espresso','Sabrina Carpenter'],['Beautiful Things','Benson Boone'],['Die With A Smile','Lady Gaga Bruno Mars'],['Stumblin’ In','CYRIL'],
+ ['Bir Derdim Var','Mor ve Ã–tesi'],['AÅŸkÄ±n Mapushane','Haluk Levent'],['Gidiyorum','Mor ve Ã–tesi'],['YalnÄ±zlÄ±k Senfonisi','Pinhani'],['Unut Beni','Model'],
+ ['APT.','ROSÃ‰ Bruno Mars'],['Espresso','Sabrina Carpenter'],['Beautiful Things','Benson Boone'],['Die With A Smile','Lady Gaga Bruno Mars'],['Stumblinâ€™ In','CYRIL'],
  ['lovely','Billie Eilish Khalid'],['Another Love','Tom Odell'],['Let Her Go','Passenger'],['Arcade','Duncan Laurence'],['Someone You Loved','Lewis Capaldi'],
- ['Комета','JONY'],['Плакала','KAZKA'],['Розовое вино','Элджей Feduk'],
- ['Yananı Görür Allah','Yananı Görür Allah'],['Yakında Yakında Gelecek Yakında','Yakında Yakında Gelecek Yakında']
+ ['ĞšĞ¾Ğ¼ĞµÑ‚Ğ°','JONY'],['ĞŸĞ»Ğ°ĞºĞ°Ğ»Ğ°','KAZKA'],['Ğ Ğ¾Ğ·Ğ¾Ğ²Ğ¾Ğµ Ğ²Ğ¸Ğ½Ğ¾','Ğ­Ğ»Ğ´Ğ¶ĞµĞ¹ Feduk'],
+ ['YananÄ± GÃ¶rÃ¼r Allah','YananÄ± GÃ¶rÃ¼r Allah'],['YakÄ±nda YakÄ±nda Gelecek YakÄ±nda','YakÄ±nda YakÄ±nda Gelecek YakÄ±nda']
 ];
 let current=0;
-const $=id=>document.getElementById(id);
-function ytUrl(i){const [name,artist]=tracks[i];return 'https://www.youtube.com/results?search_query='+encodeURIComponent(name+' '+artist);}
-function openTrack(i){current=(i+tracks.length)%tracks.length;$('musicNow').textContent=tracks[current][0];renderList();window.open(ytUrl(current),'_blank','noopener');}
-function renderList(){const box=$('musicList');if(!box)return;box.innerHTML=tracks.map((t,i)=>`<div class="track ${i===current?'active':''}" data-track="${i}"><span class="track-num">${String(i+1).padStart(2,'0')}</span><span class="track-name"><b>${t[0]}</b><small style="display:block;color:#777;margin-top:2px">${t[1]}</small></span><span class="track-play">▶</span></div>`).join('');box.querySelectorAll('[data-track]').forEach(x=>x.onclick=()=>openTrack(Number(x.dataset.track)));}
+function ytEmbedUrl(i){const [name,artist]=tracks[i];const q=encodeURIComponent(name+' '+artist);return 'https://www.youtube.com/embed?listType=search&list='+q+'&autoplay=1';}
+function openTrack(i){current=(i+tracks.length)%tracks.length;const [name,artist]=tracks[current];$('musicNow').textContent=name+' â€” '+artist;const frame=$('musicFrame'),wrap=$('musicPlayerWrap');if(frame&&wrap){frame.src=ytEmbedUrl(current);wrap.classList.add('ready');}renderList();}
+function renderList(){const box=$('musicList');if(!box)return;box.innerHTML=tracks.map((t,i)=>`<div class="track ${i===current?'active':''}" data-track="${i}"><span class="track-num">${String(i+1).padStart(2,'0')}</span><span class="track-name"><b>${t[0]}</b><small style="display:block;color:#777;margin-top:2px">${t[1]}</small></span><span class="track-play">â–¶</span></div>`).join('');box.querySelectorAll('[data-track]').forEach(x=>x.onclick=()=>openTrack(Number(x.dataset.track)));}
 function togglePanel(){const p=$('musicPanel');p.classList.toggle('show');if(p.classList.contains('show'))renderList();}
 document.addEventListener('DOMContentLoaded',()=>{
  renderList();
@@ -487,10 +501,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     const about=document.getElementById('about');
     if(about && !document.getElementById('alexixStats')){
       const bar=document.createElement('div'); bar.id='alexixStats'; bar.className='enhance-bar';
-      bar.innerHTML='<div class="stat"><b>270</b><span>Katalog komutu</span></div><div class="stat"><b>11</b><span>Kategori</span></div><div class="stat"><b id="onlineCount">24</b><span>Demo kullanıcı</span></div><div class="stat"><b>7/24</b><span>Panel erişimi</span></div>';
+      bar.innerHTML='<div class="stat"><b>270</b><span>Katalog komutu</span></div><div class="stat"><b>11</b><span>Kategori</span></div><div class="stat"><b id="onlineCount">24</b><span>Demo kullanÄ±cÄ±</span></div><div class="stat"><b>7/24</b><span>Panel eriÅŸimi</span></div>';
       about.appendChild(bar);
       const qa=document.createElement('div'); qa.className='quick-actions';
-      qa.innerHTML='<button type="button" id="quickSupport">🎫 Destek</button><button type="button" id="quickPurchase">💳 Paketler</button><button type="button" id="quickCommands">⌘ Komut Merkezi</button>';
+      qa.innerHTML='<button type="button" id="quickSupport">ğŸ« Destek</button><button type="button" id="quickPurchase">ğŸ’³ Paketler</button><button type="button" id="quickCommands">âŒ˜ Komut Merkezi</button>';
       about.appendChild(qa);
       document.getElementById('quickSupport').onclick=()=>document.getElementById('contact')?.scrollIntoView({behavior:'smooth'});
       document.getElementById('quickPurchase').onclick=()=>document.getElementById('prices')?.scrollIntoView({behavior:'smooth'});
@@ -498,7 +512,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     if(!document.getElementById('alexixFloating')){
       const f=document.createElement('div');f.id='alexixFloating';f.className='floating';
-      f.innerHTML='<button class="float-btn" id="themeBtn" title="Tema">◐</button><button class="float-btn" id="topBtn" title="Yukarı">↑</button>';
+      f.innerHTML='<button class="float-btn" id="themeBtn" title="Tema">â—</button><button class="float-btn" id="topBtn" title="YukarÄ±">â†‘</button>';
       document.body.appendChild(f);
       document.getElementById('topBtn').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
       document.getElementById('themeBtn').onclick=()=>{
@@ -516,13 +530,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     ['planStart','planVip','planPremium'].forEach(id=>{
       const old=document.getElementById(id); if(!old || old.dataset.upgraded)return;
       old.dataset.upgraded='1'; old.onclick=function(){
-        const names={planStart:['BAŞLANGIÇ','99 TL'],planVip:['VIP','249 TL'],planPremium:['PREMIUM','499 TL']}[id];
+        const names={planStart:['BAÅLANGIÃ‡','99 TL'],planVip:['VIP','249 TL'],planPremium:['PREMIUM','499 TL']}[id];
         const modal=document.getElementById('modal'), title=document.getElementById('modalTitle'), content=document.getElementById('modalContent');
         title.textContent='PAKET SATIN AL';
-        content.innerHTML='<div class="purchase-box"><h3>'+names[0]+' — '+names[1]+'</h3><p>Paket hakkında bilgi ve satın alma için Alexix ulaşım:</p><a class="contact-phone" href="tel:+573247755324">📞 +57 324 7755324</a><div class="purchase-actions"><a class="btn" href="tel:+573247755324">ARA</a><a class="btn alt" target="_blank" rel="noopener" href="https://wa.me/573247755324">WHATSAPP</a></div><button type="button" class="copy-btn" id="copyPhone" style="width:100%;margin-top:10px">NUMARAYI KOPYALA</button><div class="demo-note">Bu sitede ödeme alınmaz. Paket işlemi için iletişim numarasından Alexix'e ulaşılır.</div></div><button type="button" class="btn" id="purchaseClose" style="margin-top:12px">KAPAT</button>';
+        content.innerHTML='<div class="purchase-box"><h3>'+names[0]+' â€” '+names[1]+'</h3><p>Paket hakkÄ±nda bilgi ve satÄ±n alma iÃ§in Alexix ulaÅŸÄ±m:</p><a class="contact-phone" href="tel:+573247755324">ğŸ“ +57 324 7755324</a><div class="purchase-actions"><a class="btn" href="tel:+573247755324">ARA</a><a class="btn alt" target="_blank" rel="noopener" href="https://wa.me/573247755324">WHATSAPP</a></div><button type="button" class="copy-btn" id="copyPhone" style="width:100%;margin-top:10px">NUMARAYI KOPYALA</button><div class="demo-note">Bu sitede Ã¶deme alÄ±nmaz. Paket iÅŸlemi iÃ§in iletiÅŸim numarasÄ±ndan Alexix'e ulaÅŸÄ±lÄ±r.</div></div><button type="button" class="btn" id="purchaseClose" style="margin-top:12px">KAPAT</button>';
         modal.classList.add('show');
         document.getElementById('purchaseClose').onclick=()=>modal.classList.remove('show');
-        document.getElementById('copyPhone').onclick=async()=>{try{await navigator.clipboard.writeText('+57 324 7755324'); if(typeof toast==='function')toast('Numara kopyalandı.');}catch(e){if(typeof toast==='function')toast('+57 324 7755324');}};
+        document.getElementById('copyPhone').onclick=async()=>{try{await navigator.clipboard.writeText('+57 324 7755324'); if(typeof toast==='function')toast('Numara kopyalandÄ±.');}catch(e){if(typeof toast==='function')toast('+57 324 7755324');}};
       };
     });
   }
