@@ -1,122 +1,172 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>❤️ Aşkımız ❤️</title>
+<title>FATİH ❤️ YAĞMUR</title>
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;min-height:100vh;
- font-family:Arial,sans-serif;color:white;
- background:linear-gradient(135deg,#140713,#3a102b,#160d27);
- text-align:center;overflow-x:hidden
-}
-.container{padding:35px 18px;max-width:500px;margin:auto}
-.heart{font-size:65px;animation:pulse 1s infinite}
-h1{color:#ff79bd;font-size:35px}
-p{line-height:1.8;color:#f5d9e9}
-.card{
- background:#ffffff12;border:1px solid #ff79bd55;
- padding:22px;border-radius:22px;margin:20px 0;
- box-shadow:0 0 25px #ff399922
-}
-button{
- background:#ff4f9a;color:white;border:0;
- padding:14px 24px;border-radius:30px;
- font-size:16px;font-weight:bold;cursor:pointer;
- margin:8px
-}
-button:hover{background:#e82d80}
-#message{display:none;color:#ffacd4;font-size:18px}
-.counter{font-size:27px;color:#ff8fc5;font-weight:bold}
-.floating{
- position:fixed;bottom:-30px;animation:float 7s linear infinite;
- pointer-events:none;z-index:-1
-}
-@keyframes pulse{50%{transform:scale(1.15)}}
-@keyframes float{
- to{transform:translateY(-110vh) rotate(360deg);opacity:0}
-}
-footer{font-size:12px;color:#bd9aad;margin-top:35px}
+    /* Genel Ayarlar */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { 
+        background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d9 100%); 
+        min-height: 100vh; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        overflow-x: hidden;
+    }
+
+    /* Şifre Giriş Ekranı (Gate) */
+    #gate { 
+        position: fixed; 
+        inset: 0; 
+        z-index: 999; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d9 100%);
+        transition: opacity 0.5s ease;
+    }
+    .gate-card { 
+        background: rgba(255, 255, 255, 0.95); 
+        padding: 40px 25px; 
+        border-radius: 30px; 
+        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3); 
+        text-align: center; 
+        width: 90%; 
+        max-width: 400px;
+        border: 2px solid #ff99cc;
+    }
+    .gate-card h1 { color: #d6336c; font-size: 2rem; margin-bottom: 10px; }
+    .gate-card p { color: #666; margin-bottom: 20px; font-size: 1.1rem; }
+    .gate-card input { 
+        width: 100%; 
+        padding: 15px; 
+        border: 2px solid #ffb3d9; 
+        border-radius: 15px; 
+        font-size: 1.1rem; 
+        text-align: center; 
+        outline: none; 
+        margin-bottom: 20px;
+    }
+    .gate-card input:focus { border-color: #ff4d94; }
+    .gate-card button { 
+        width: 100%; 
+        padding: 15px; 
+        background: #ff4d94; 
+        color: white; 
+        border: none; 
+        border-radius: 15px; 
+        font-size: 1.2rem; 
+        font-weight: bold; 
+        cursor: pointer; 
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(255, 77, 148, 0.4);
+    }
+    .gate-card button:hover { background: #e6005c; transform: translateY(-2px); }
+
+    /* Ana İçerik (Şifre Girildikten Sonra Görünecek) */
+    #main-content { 
+        display: none; /* Başlangıçta gizli */
+        width: 100%;
+        max-width: 800px;
+        padding: 40px 20px;
+        animation: fadeIn 1s ease;
+    }
+    
+    .section {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        border-left: 5px solid #ff4d94;
+    }
+    
+    h2 { color: #d6336c; margin-bottom: 15px; font-size: 1.5rem; }
+    p { line-height: 1.8; color: #444; margin-bottom: 15px; font-size: 1.05rem; }
+    .signature { text-align: right; font-weight: bold; color: #d6336c; font-size: 1.2rem; margin-top: 20px; }
+    
+    .gallery-photo img {
+        width: 100%;
+        border-radius: 20px;
+        margin-top: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="heart">❤️</div>
-  <h1>Sadece Sen 💕</h1>
-  <p>Bu dünyada en güzel şey,<br>
-  seninle paylaşılan güzel anılar...</p>
 
-  <div class="card">
-    <h2>💌 Sana Özel</h2>
-    <p>İyi ki hayatımdasın.<br>
-    Gülüşün günümü güzelleştiriyor.<br>
-    Seninle her an daha anlamlı. ❤️</p>
-    <button onclick="showLove()">Mesajını Aç 💗</button>
-    <p id="message">Seni her gün yeniden seçerdim. 💖</p>
-  </div>
+    <!-- ŞİFRE EKRANI -->
+    <div id="gate">
+        <div class="gate-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">💖</div>
+            <h1>FATİH ❤️ YAĞMUR</h1>
+            <p>İkimizin küçük dünyasına hoş geldin 🤍</p>
+            <p style="font-size: 0.9rem; color: #888;">Kalbimizin şifresi</p>
+            <input type="password" id="sifreInput" placeholder="Şifreyi gir..." maxlength="4">
+            <button onclick="sifreKontrol()">Şifremizi aç Minağim 🤍</button>
+        </div>
+    </div>
 
-  <div class="card">
-    <h2>💞 Aşk Sayacımız</h2>
-    <p>Birlikte olduğumuz gün sayısı:</p>
-    <div class="counter" id="days">Tarih bekleniyor...</div>
-    <p>Her gün yeni bir anı. 🌙</p>
-  </div>
+    <!-- ANA İÇERİK (Şifre Doğruysa Açılır) -->
+    <div id="main-content">
+        
+        <!-- Anılar Bölümü -->
+        <section class="section">
+            <h2>Bizim Hikayemiz 💖✨</h2>
+            <p>Her şeyin başladığı o güzel günleri hatırlamak için...</p>
+            <p>Bir gün grubumda sana zorbalık yaptılar. Sonra seni DM'den çağırdım ve güzelce konuşmaya başladık. Sana yapılanlara sessiz kalmadım; o gün seni korumaya karar verdim.</p>
+            <p>Günler geçtikçe birbirimizden daha çok hoşlanmaya başladık. Her sohbetimiz bizi biraz daha yakınlaştırdı; konuşmalarımız, gülüşlerimiz...</p>
+            <p>Derken en tatlı şey oldu: aynı gün birbirimize açıldık. İkimiz de içimizdekileri söyledik ve duygularımızın karşılıklı olduğunu öğrendik.</p>
+            <p>Şimdi dönüp baktığımda şunu anlıyorum: birbirimizi seçmek, hayatımızdaki en güzel kararlardan biriymiş. İyi ki konuşmuşuz, iyi ki birbirimizi bulmuşuz.</p>
+            <p>Daha önümüzde biriktireceğimiz nice güzel anı, paylaşacağımız kahkaha ve birlikte kuracağımız hayal var. Ben bizim hikayemizin her yeni sayfasını sabırsızlıkla bekliyorum.</p>
+            <p>İyi ki varsın Yağmurum. İyi ki bizim hikayemiz var. Seni seviyorum. 💖</p>
+            <div class="signature">Seni çok seven,<br>Senin Alex'in 🤍</div>
+        </section>
 
-  <div class="card">
-    <h2>🌹 Bir Söz</h2>
-    <p>“Bazı insanlar tesadüf değil,
-    kalbin en güzel hikâyesidir.”</p>
-    <button onclick="newQuote()">Yeni Söz ✨</button>
-    <p id="quote"></p>
-  </div>
+        <!-- Hatıralar / Fotoğraf Bölümü -->
+        <section class="section">
+            <h2>Bizden hatıralar 📸</h2>
+            <p>Güzel mesajlarımız ve anılarımızdan küçük parçalar... Her fotoğrafın üzerinde sana özel bir anlam var.</p>
+            
+            <!-- BURAYA KENDİ FOTOĞRAFININ LİNKİNİ VEYA BASE64 KODUNU YAPIŞTIR -->
+            <div class="gallery-photo">
+                <img src="https://via.placeholder.com/600x400/ffb3d9/ffffff?text=Fotograf+Buraya+Gelecek" alt="Anımız">
+            </div>
+        </section>
 
-  <footer>❤️ Sevgiyle hazırlandı ❤️</footer>
-</div>
+    </div>
 
-<script>
-// Birlikte olduğunuz tarihi buraya yaz:
-const baslangic = ""; // Örnek: 2026-01-01
+    <!-- JAVASCRIPT KODU (Şifre Kontrolü) -->
+    <script>
+        function sifreKontrol() {
+            // Şifre 3131 olarak ayarlandı
+            var dogruSifre = "3131"; 
+            
+            var girilenSifre = document.getElementById("sifreInput").value;
 
-function showLove(){
- document.getElementById("message").style.display="block";
-}
-function updateDays(){
- const el=document.getElementById("days");
- if(!baslangic){
-   el.textContent="Başlangıç tarihini gir 💗";
-   return;
- }
- const start=new Date(baslangic+"T00:00:00");
- if(isNaN(start.getTime()) || start>new Date()){
-   el.textContent="Tarihi kontrol et";
-   return;
- }
- el.textContent=Math.floor((Date.now()-start.getTime())/86400000)+" gün ❤️";
-}
-updateDays();
+            if (girilenSifre === dogruSifre) {
+                // Şifre doğruysa giriş ekranını gizle
+                var gate = document.getElementById("gate");
+                gate.style.opacity = "0";
+                setTimeout(function() {
+                    gate.style.display = "none";
+                    // Ana içeriği göster
+                    document.getElementById("main-content").style.display = "block";
+                }, 500);
+            } else {
+                // Şifre yanlışsa uyarı ver
+                alert("Şifre yanlış canım, tekrar dene! 🥺");
+                document.getElementById("sifreInput").value = ""; // Kutuyu temizle
+            }
+        }
+    </script>
 
-const quotes=[
- "Kalbimin en güzel köşesi sana ait. ❤️",
- "Seninle sıradan günler bile özel. 🌹",
- "En güzel hikâyemiz daha bitmedi. 💕",
- "Mesafeler olsa da güzel anılar bizimle. 💌"
-];
-function newQuote(){
- document.getElementById("quote").textContent=
- quotes[Math.floor(Math.random()*quotes.length)];
-}
-setInterval(()=>{
- const h=document.createElement("div");
- h.className="floating";
- h.textContent=["❤️","💕","💗","💖"][Math.floor(Math.random()*4)];
- h.style.left=Math.random()*100+"vw";
- h.style.fontSize=(16+Math.random()*20)+"px";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),7000);
-},650);
-</script>
 </body>
 </html>
