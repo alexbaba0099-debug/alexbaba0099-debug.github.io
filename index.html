@@ -1,172 +1,436 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FATİH ❤️ YAĞMUR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffe5ef">
+<title>FATİH 🤍 YAĞMUR</title>
+
 <style>
-    /* Genel Ayarlar */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { 
-        background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d9 100%); 
-        min-height: 100vh; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        overflow-x: hidden;
-    }
+*{box-sizing:border-box}
 
-    /* Şifre Giriş Ekranı (Gate) */
-    #gate { 
-        position: fixed; 
-        inset: 0; 
-        z-index: 999; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        background: linear-gradient(135deg, #ffe6f0 0%, #ffb3d9 100%);
-        transition: opacity 0.5s ease;
-    }
-    .gate-card { 
-        background: rgba(255, 255, 255, 0.95); 
-        padding: 40px 25px; 
-        border-radius: 30px; 
-        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3); 
-        text-align: center; 
-        width: 90%; 
-        max-width: 400px;
-        border: 2px solid #ff99cc;
-    }
-    .gate-card h1 { color: #d6336c; font-size: 2rem; margin-bottom: 10px; }
-    .gate-card p { color: #666; margin-bottom: 20px; font-size: 1.1rem; }
-    .gate-card input { 
-        width: 100%; 
-        padding: 15px; 
-        border: 2px solid #ffb3d9; 
-        border-radius: 15px; 
-        font-size: 1.1rem; 
-        text-align: center; 
-        outline: none; 
-        margin-bottom: 20px;
-    }
-    .gate-card input:focus { border-color: #ff4d94; }
-    .gate-card button { 
-        width: 100%; 
-        padding: 15px; 
-        background: #ff4d94; 
-        color: white; 
-        border: none; 
-        border-radius: 15px; 
-        font-size: 1.2rem; 
-        font-weight: bold; 
-        cursor: pointer; 
-        transition: 0.3s;
-        box-shadow: 0 5px 15px rgba(255, 77, 148, 0.4);
-    }
-    .gate-card button:hover { background: #e6005c; transform: translateY(-2px); }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#51283a;
+  background:linear-gradient(#fff5f8,#ffe4ee,#fff8fb);
+}
 
-    /* Ana İçerik (Şifre Girildikten Sonra Görünecek) */
-    #main-content { 
-        display: none; /* Başlangıçta gizli */
-        width: 100%;
-        max-width: 800px;
-        padding: 40px 20px;
-        animation: fadeIn 1s ease;
-    }
-    
-    .section {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 30px;
-        border-radius: 25px;
-        margin-bottom: 30px;
-        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-        border-left: 5px solid #ff4d94;
-    }
-    
-    h2 { color: #d6336c; margin-bottom: 15px; font-size: 1.5rem; }
-    p { line-height: 1.8; color: #444; margin-bottom: 15px; font-size: 1.05rem; }
-    .signature { text-align: right; font-weight: bold; color: #d6336c; font-size: 1.2rem; margin-top: 20px; }
-    
-    .gallery-photo img {
-        width: 100%;
-        border-radius: 20px;
-        margin-top: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+header{
+  text-align:center;
+  padding:45px 15px;
+  background:radial-gradient(circle,#fff,#ffd9e7);
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+h1{
+  color:#a92e60;
+  font-size:clamp(2rem,8vw,4rem);
+}
+
+nav{
+  position:sticky;
+  top:0;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  padding:14px;
+  background:#fffafcee;
+  z-index:5;
+}
+
+nav a{
+  color:#a92e60;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+main{
+  width:min(900px,92%);
+  margin:25px auto;
+}
+
+section{
+  background:#ffffffdf;
+  border:1px solid #ffdae7;
+  border-radius:22px;
+  padding:22px;
+  margin:20px 0;
+  box-shadow:0 10px 30px #a92e6010;
+}
+
+h2{color:#a92e60}
+
+button{
+  border:0;
+  border-radius:30px;
+  padding:12px 20px;
+  color:white;
+  background:#ff6f9f;
+  font-size:16px;
+  cursor:pointer;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1px solid #f4aac5;
+  border-radius:12px;
+  margin:10px 0;
+  font-size:16px;
+}
+
+#site{
+  display:none;
+}
+
+#gate{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(145deg,#ffd6e5,#ffedf4,#ffc4db);
+}
+
+.gate-card{
+  max-width:420px;
+  width:100%;
+  text-align:center;
+  padding:28px;
+  background:#ffffffed;
+  border-radius:25px;
+  box-shadow:0 15px 45px #a92e6025;
+}
+
+.big-heart{
+  font-size:60px;
+  animation:beat 1.2s infinite;
+}
+
+@keyframes beat{
+  50%{transform:scale(1.15)}
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.gallery img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:16px;
+  box-shadow:0 4px 15px #ffb6d4;
+}
+
+audio{
+  width:100%;
+  margin-top:10px;
+}
+
+.love-text{
+  line-height:1.9;
+  white-space:pre-line;
+}
+
+.heart{
+  position:fixed;
+  bottom:-30px;
+  z-index:2;
+  pointer-events:none;
+  animation:rise 6s linear forwards;
+}
+
+@keyframes rise{
+  to{
+    transform:translateY(-110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#985b73;
+}
+
+@media(max-width:500px){
+  .gallery img{height:160px}
+}
 </style>
 </head>
+
 <body>
 
-    <!-- ŞİFRE EKRANI -->
-    <div id="gate">
-        <div class="gate-card">
-            <div style="font-size: 3rem; margin-bottom: 10px;">💖</div>
-            <h1>FATİH ❤️ YAĞMUR</h1>
-            <p>İkimizin küçük dünyasına hoş geldin 🤍</p>
-            <p style="font-size: 0.9rem; color: #888;">Kalbimizin şifresi</p>
-            <input type="password" id="sifreInput" placeholder="Şifreyi gir..." maxlength="4">
-            <button onclick="sifreKontrol()">Şifremizi aç Minağim 🤍</button>
-        </div>
-    </div>
+<!-- ŞİFRE EKRANI -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="big-heart">❤️</div>
+    <h1>Fatih 🤍 Yağmur</h1>
+    <p>Bu küçük dünyaya girmek için şifreyi yaz aşkım 💗</p>
 
-    <!-- ANA İÇERİK (Şifre Doğruysa Açılır) -->
-    <div id="main-content">
-        
-        <!-- Anılar Bölümü -->
-        <section class="section">
-            <h2>Bizim Hikayemiz 💖✨</h2>
-            <p>Her şeyin başladığı o güzel günleri hatırlamak için...</p>
-            <p>Bir gün grubumda sana zorbalık yaptılar. Sonra seni DM'den çağırdım ve güzelce konuşmaya başladık. Sana yapılanlara sessiz kalmadım; o gün seni korumaya karar verdim.</p>
-            <p>Günler geçtikçe birbirimizden daha çok hoşlanmaya başladık. Her sohbetimiz bizi biraz daha yakınlaştırdı; konuşmalarımız, gülüşlerimiz...</p>
-            <p>Derken en tatlı şey oldu: aynı gün birbirimize açıldık. İkimiz de içimizdekileri söyledik ve duygularımızın karşılıklı olduğunu öğrendik.</p>
-            <p>Şimdi dönüp baktığımda şunu anlıyorum: birbirimizi seçmek, hayatımızdaki en güzel kararlardan biriymiş. İyi ki konuşmuşuz, iyi ki birbirimizi bulmuşuz.</p>
-            <p>Daha önümüzde biriktireceğimiz nice güzel anı, paylaşacağımız kahkaha ve birlikte kuracağımız hayal var. Ben bizim hikayemizin her yeni sayfasını sabırsızlıkla bekliyorum.</p>
-            <p>İyi ki varsın Yağmurum. İyi ki bizim hikayemiz var. Seni seviyorum. 💖</p>
-            <div class="signature">Seni çok seven,<br>Senin Alex'in 🤍</div>
-        </section>
+    <form id="passwordForm">
+      <input
+        id="password"
+        type="password"
+        placeholder="Şifreyi gir..."
+        autocomplete="off"
+        required
+      >
+      <button type="submit">💖 Giriş Yap</button>
+    </form>
 
-        <!-- Hatıralar / Fotoğraf Bölümü -->
-        <section class="section">
-            <h2>Bizden hatıralar 📸</h2>
-            <p>Güzel mesajlarımız ve anılarımızdan küçük parçalar... Her fotoğrafın üzerinde sana özel bir anlam var.</p>
-            
-            <!-- BURAYA KENDİ FOTOĞRAFININ LİNKİNİ VEYA BASE64 KODUNU YAPIŞTIR -->
-            <div class="gallery-photo">
-                <img src="https://via.placeholder.com/600x400/ffb3d9/ffffff?text=Fotograf+Buraya+Gelecek" alt="Anımız">
-            </div>
-        </section>
+    <p id="error" style="color:#c02660"></p>
+  </div>
+</div>
 
-    </div>
+<!-- SİTENİN İÇERİĞİ -->
+<div id="site">
 
-    <!-- JAVASCRIPT KODU (Şifre Kontrolü) -->
-    <script>
-        function sifreKontrol() {
-            // Şifre 3131 olarak ayarlandı
-            var dogruSifre = "3131"; 
-            
-            var girilenSifre = document.getElementById("sifreInput").value;
+<header>
+  <h1>FATİH 🤍 YAĞMUR</h1>
+  <p>İki kalp, tek hikâye... 💕</p>
+  <div style="font-size:35px">💗 💞 💗</div>
+</header>
 
-            if (girilenSifre === dogruSifre) {
-                // Şifre doğruysa giriş ekranını gizle
-                var gate = document.getElementById("gate");
-                gate.style.opacity = "0";
-                setTimeout(function() {
-                    gate.style.display = "none";
-                    // Ana içeriği göster
-                    document.getElementById("main-content").style.display = "block";
-                }, 500);
-            } else {
-                // Şifre yanlışsa uyarı ver
-                alert("Şifre yanlış canım, tekrar dene! 🥺");
-                document.getElementById("sifreInput").value = ""; // Kutuyu temizle
-            }
-        }
-    </script>
+<nav>
+  <a href="#biz">Hikâyemiz</a>
+  <a href="#sayac">Sayaç</a>
+  <a href="#fotolar">Fotoğraflar</a>
+  <a href="#muzik">Şarkımız</a>
+  <a href="#mektup">Mektubum</a>
+  <a href="#ozel">Özel Alan</a>
+</nav>
+
+<main>
+
+<section id="biz">
+  <h2>💗 Bizim Hikâyemiz</h2>
+  <p class="love-text">
+Fatih 🤍 Yağmur
+
+Bazen bir insan gelir ve her şeyi güzelleştirir.
+Bir gülüş, bir mesaj, küçücük bir mutluluk...
+İşte bizim hikâyemiz de böyle güzel anlardan oluşsun.
+
+Her yeni gün bize yeni anılar getirsin.
+Kalplerimiz sevgiyle dolsun. 💕
+  </p>
+</section>
+
+<section id="sayac">
+  <h2>⏳ Birlikte Geçen Zaman</h2>
+  <p>Başlangıç tarihini aşağıya gir:</p>
+  <input type="datetime-local" id="startDate">
+  <div id="counter" class="love-text">
+Başlangıç tarihi seçilince sayaç burada görünecek.
+  </div>
+</section>
+
+<section id="fotolar">
+  <h2>📸 Güzel Anılarımız</h2>
+  <p>Fotoğraflarını seçerek galeriye ekleyebilirsin.</p>
+  <input type="file" id="photoPicker" accept="image/*" multiple>
+  <div class="gallery" id="gallery"></div>
+</section>
+
+<section id="muzik">
+  <h2>🎵 Bizim Şarkımız</h2>
+  <p>Dinlemek için müzik dosyanı seç. 💗</p>
+  <input type="file" id="musicPicker" accept="audio/*">
+  <audio id="player" controls loop>
+    Tarayıcın ses dosyasını desteklemiyor.
+  </audio>
+</section>
+
+<section id="mektup">
+  <h2>💌 Sana Mektubum</h2>
+  <p class="love-text">
+Yağmur'um 🤍
+
+Bu sayfa belki sadece birkaç satırdan oluşuyor
+ama içinde güzel anılar biriktirmek için bir dünya var.
+
+Her fotoğrafta bir anı,
+her şarkıda ayrı bir duygu,
+her kalpte sevgi olsun.
+
+Fatih 🤍 Yağmur
+Sonsuz güzel anılara... 💖
+  </p>
+</section>
+
+<section id="ozel">
+  <h2>🔐 Özel Alan</h2>
+  <p>Özel alan şifresini gir.</p>
+  <input type="password" id="privatePassword" placeholder="Şifre">
+  <button id="privateButton">Aç 💗</button>
+  <p id="privateMessage"></p>
+  <div id="privateContent" style="display:none">
+    <h2>💖 Sana Özel</h2>
+    <p>Senin için hazırlanan küçük bir mutluluk köşesi! 💕</p>
+  </div>
+</section>
+
+<section>
+  <h2>💝 Son Bir Sürpriz</h2>
+  <p>Son sürprizi görmek için şifreyi gir.</p>
+  <input type="password" id="surprisePassword" placeholder="Şifre">
+  <button id="surpriseButton">Sürprizi Aç 🎁</button>
+  <p id="surpriseMessage"></p>
+</section>
+
+</main>
+
+<footer>
+  Fatih 🤍 Yağmur — Sevgiyle hazırlandı 💗
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+const MAIN_PASSWORD = "3131";
+const PRIVATE_PASSWORD = "3131";
+const SURPRISE_PASSWORD = "3131";
+
+const gate = document.getElementById("gate");
+const site = document.getElementById("site");
+
+document.getElementById("passwordForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  if(document.getElementById("password").value === MAIN_PASSWORD){
+    gate.style.display = "none";
+    site.style.display = "block";
+    startHearts();
+  }else{
+    document.getElementById("error").textContent =
+      "Şifre yanlış, tekrar dene 💗";
+  }
+});
+
+document.getElementById("privateButton").addEventListener("click", function(){
+  const input = document.getElementById("privatePassword");
+  const message = document.getElementById("privateMessage");
+  const content = document.getElementById("privateContent");
+
+  if(input.value === PRIVATE_PASSWORD){
+    content.style.display = "block";
+    message.textContent = "Özel alan açıldı 💖";
+  }else{
+    message.textContent = "Şifre yanlış 💔";
+  }
+});
+
+document.getElementById("surpriseButton").addEventListener("click", function(){
+  const input = document.getElementById("surprisePassword");
+  const message = document.getElementById("surpriseMessage");
+
+  if(input.value === SURPRISE_PASSWORD){
+    message.textContent =
+      "🎉 Sürpriz! Sen bu hikâyenin en güzel parçasısın. ❤️";
+    makeHearts(30);
+  }else{
+    message.textContent = "Şifre yanlış, tekrar dene 💗";
+  }
+});
+
+// Fotoğrafları seç ve galeride göster
+document.getElementById("photoPicker").addEventListener("change", function(e){
+  const gallery = document.getElementById("gallery");
+  gallery.replaceChildren();
+
+  Array.from(e.target.files).forEach(function(file){
+    const image = document.createElement("img");
+    image.alt = "Anımız 💗";
+    image.src = URL.createObjectURL(file);
+    gallery.appendChild(image);
+  });
+});
+
+// Müzik dosyasını seç ve çal
+document.getElementById("musicPicker").addEventListener("change", function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const player = document.getElementById("player");
+  player.src = URL.createObjectURL(file);
+  player.load();
+  player.play().catch(function(){});
+});
+
+// Başlangıç tarihine göre sayaç
+const startInput = document.getElementById("startDate");
+const counter = document.getElementById("counter");
+
+startInput.addEventListener("change", updateCounter);
+
+function updateCounter(){
+  if(!startInput.value){
+    counter.textContent = "Bir başlangıç tarihi seç.";
+    return;
+  }
+
+  const start = new Date(startInput.value);
+  const now = new Date();
+  let difference = now - start;
+
+  if(difference < 0){
+    counter.textContent = "Başlangıç tarihi gelecekte olamaz.";
+    return;
+  }
+
+  const seconds = Math.floor(difference / 1000);
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor(seconds % 86400 / 3600);
+  const minutes = Math.floor(seconds % 3600 / 60);
+  const remainingSeconds = seconds % 60;
+
+  counter.textContent =
+    days + " gün, " +
+    hours + " saat, " +
+    minutes + " dakika, " +
+    remainingSeconds + " saniye 💗";
+}
+
+setInterval(function(){
+  if(startInput.value) updateCounter();
+}, 1000);
+
+// Yüzen kalpler
+function makeHearts(amount){
+  const symbols = ["❤️","💗","💕","💖","💘"];
+
+  for(let i = 0; i < amount; i++){
+    const heart = document.createElement("span");
+    heart.className = "heart";
+    heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (18 + Math.random() * 22) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+    document.body.appendChild(heart);
+    heart.addEventListener("animationend", function(){
+      heart.remove();
+    });
+  }
+}
+
+function startHearts(){
+  makeHearts(15);
+  setInterval(function(){
+    if(site.style.display !== "none") makeHearts(3);
+  }, 2500);
+}
+</script>
 
 </body>
 </html>
