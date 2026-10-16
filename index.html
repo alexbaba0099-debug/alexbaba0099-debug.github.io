@@ -1,89 +1,122 @@
-<!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#ffe5ef"><title>FATİH 🤍 YAĞMUR</title>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Aşkımız ❤️</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;color:#51283a;background:linear-gradient(#fff5f8,#ffe4ee,#fff8fb)}header{text-align:center;padding:48px 18px;background:radial-gradient(circle,#fff,#ffd9e7);position:relative}h1{font-size:clamp(2.5rem,9vw,4.5rem);margin:15px 0;color:#a92e60}header p{line-height:1.7}nav{position:sticky;top:0;z-index:2;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;background:#fffafcdd;padding:12px;backdrop-filter:blur(8px)}nav a{color:#a92e60;text-decoration:none;padding:8px;font-size:.9rem}main{width:min(900px,92%);margin:25px auto}section{background:#ffffffdf;border:1px solid #ffdae7;border-radius:22px;padding:clamp(18px,4vw,32px);margin:20px 0;box-shadow:0 10px 30px #a92e6010}h2{color:#a92e60;margin-top:0}.counter{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.unit{text-align:center;background:#fff0f6;border-radius:15px;padding:14px 4px}.unit b{display:block;font-size:clamp(1.4rem,5vw,2.3rem);color:#a92e60}.unit span{font-size:.82rem}.letter{white-space:pre-line;line-height:1.85}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.tile{padding:16px;border-radius:15px;background:#fff3f8;border:1px solid #ffd7e5;line-height:1.7}.placeholder{min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;border:2px dashed #f6a8c4;border-radius:18px;padding:18px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 22%,#fff 0,#ffeaf2 40%,#ffd4e4 100%);color:#a92e60;isolation:isolate}.placeholder:before{content:"♡";position:absolute;top:12px;left:0;right:0;font-size:5rem;line-height:1;color:#f6a8c455;z-index:-1}.placeholder b{font-size:1.05rem;margin:4px 0}.placeholder small{display:block;margin-top:6px;color:#985b73}.gallery-photo{min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;border-radius:18px;padding:16px;position:relative;overflow:hidden;background:#ffd4e4;box-shadow:0 8px 22px #a92e6018;isolation:isolate}.gallery-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}.gallery-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#210b1a05 25%,#210b1a99 100%);z-index:-1}.gallery-photo .photo-quote{color:#8f2854;background:#ffffffeb}.gallery-photo b{color:#fff;text-shadow:0 2px 8px #0008;margin-top:8px}.photo-quote{font-style:italic;font-weight:700;line-height:1.5;color:#8f2854;background:#ffffffb8;border:1px solid #ffffffd9;border-radius:14px;padding:10px 12px;box-shadow:0 5px 18px #a92e6010;max-width:100%}.song{margin:14px 0;padding:14px;background:#fff3f8;border-radius:15px}.song iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;margin-top:10px}input{width:100%;padding:13px;border:1px solid #f4aac5;border-radius:12px;font:inherit;margin:10px 0}button{padding:12px 18px;border:0;border-radius:999px;background:#ff6f9f;color:white;font-weight:bold;font-size:1rem;cursor:pointer}button:hover{filter:brightness(.96)}#privateContent{display:none}.note{font-size:.88rem;color:#85536a}footer{text-align:center;padding:25px;color:#985b73}@media(max-width:520px){.counter{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
-#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(145deg,#ffd6e5,#ffedf4 50%,#ffc4db);overflow:hidden}
-.gate-card{width:min(440px,100%);text-align:center;padding:30px 24px;background:#ffffffeb;border:1px solid #ffc3d8;border-radius:28px;box-shadow:0 18px 55px #a92e6025;position:relative;z-index:2}
-.gate-card h1{font-size:clamp(2rem,8vw,3rem);margin:6px 0;color:#a92e60}.gate-card p{line-height:1.6}.big-heart{font-size:3.3rem;animation:heartbeat 1.3s infinite}.gate-hearts{color:#ed5e96;font-size:1.5rem;letter-spacing:7px;margin:10px 0;animation:float 3s ease-in-out infinite}
-#gateButton{width:100%;box-shadow:0 7px 18px #ff6f9f40}
-#loveBurst{position:fixed;inset:0;z-index:10001;display:none;place-items:center;overflow:hidden;background:#ffb6d4b8;pointer-events:none}
-#loveBurst.show{display:grid;animation:burstBg 2.8s ease forwards}
-#burstMessage{position:relative;z-index:3;text-align:center;color:#a51d5a;font-size:clamp(2rem,8vw,4rem);font-weight:900;padding:24px;text-shadow:0 3px 0 #fff,0 8px 25px #c0266a55;animation:messagePop .8s cubic-bezier(.2,1.5,.4,1) both}
-.burst-heart{position:absolute;left:50%;top:50%;font-size:clamp(1.4rem,5vw,3rem);animation:heartFly 2.4s ease-out forwards;will-change:transform,opacity}
-@keyframes heartFly{0%{transform:translate(-50%,-50%) scale(.2) rotate(0deg);opacity:0}12%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(var(--s)) rotate(var(--r));opacity:0}}
-@keyframes messagePop{0%{opacity:0;transform:scale(.25)}70%{opacity:1;transform:scale(1.08)}100%{transform:scale(1)}}
-@keyframes burstBg{0%{background:#ffb6d400}12%{background:#ffb6d4d9}75%{background:#ffb6d45c}100%{background:#ffb6d400}}
-@media(prefers-reduced-motion:reduce){.burst-heart,#burstMessage{animation-duration:.01ms!important}}
-@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-/* Romantic polish */
-body{background:radial-gradient(ellipse at 12% 8%,#fff 0,#fff2f7 25%,transparent 52%),linear-gradient(155deg,#ffe1ec 0%,#fff4f8 45%,#ffd7e7 100%)}
-header{background:linear-gradient(135deg,#ffd7e6dd,#fff5f9ee,#ffc9dfdd);padding-top:58px;padding-bottom:52px}
-header h1{text-shadow:0 5px 22px #a92e6020;letter-spacing:.045em}
-section{box-shadow:0 16px 42px #b83e7412;border-color:#ffd0e1}
-.song{margin-top:16px;padding:18px;background:linear-gradient(135deg,#fff5f9,#ffe8f1);border:1px solid #ffd0e1;border-radius:20px}
-.play-song{margin-top:10px;background:linear-gradient(135deg,#ff80ad,#e84f8a);box-shadow:0 7px 18px #e84f8a2c}
-.player-slot{margin-top:12px}
-.player-slot iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:16px;background:#180d14;box-shadow:0 8px 25px #55233a20}
-.gate-card{background:linear-gradient(145deg,#fff,#fff1f7);border:1px solid #ffc4d9}
-audio{width:100%;margin-top:12px;accent-color:#e84f8a}.song code{background:#ffe6ef;padding:2px 5px;border-radius:5px}
-#lastContent{margin-top:22px;padding:20px 12px;border-radius:20px;text-align:center;background:linear-gradient(145deg,#fff0f7,#ffd9e9);border:1px solid #ffc3d9;animation:messagePop .7s both}
-.last-love-title{font-size:clamp(1.5rem,6vw,2.5rem);color:#c0266a;text-shadow:0 3px 14px #e84f8a25;margin:8px 0}
-.last-love-subtitle{color:#9d285b;font-weight:600}
-.heart-pattern{font-size:clamp(1rem,4vw,1.65rem);line-height:1.18;letter-spacing:.02em;white-space:pre;overflow-x:auto;padding:10px 0;filter:drop-shadow(0 4px 7px #ec489933)}
-</style></head><body>
-<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-  <div class="gate-hearts" aria-hidden="true">♡ ♥ ♡ ♥ ♡ ♥ ♡</div>
-  <div class="gate-card">
-    <div class="big-heart" aria-hidden="true">💗</div>
-    <h1 id="gateTitle">FATİH 🤍 YAĞMUR</h1>
-    <p>İkimizin küçük dünyasına hoş geldin 🤍</p>
-    <label for="gatePass">Kalbimizin şifresi</label>
-    <input id="gatePass" type="password" inputmode="numeric" autocomplete="off" placeholder="Şifreyi gir..." />
-    <button id="gateButton" type="button">Şifremizi aç Minağım ♡</button>
-    <p id="gateError" role="status" class="note"></p>
-    <div class="gate-hearts" aria-hidden="true">♡ 💕 ♡ 💞 ♡</div>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;
+ font-family:Arial,sans-serif;color:white;
+ background:linear-gradient(135deg,#140713,#3a102b,#160d27);
+ text-align:center;overflow-x:hidden
+}
+.container{padding:35px 18px;max-width:500px;margin:auto}
+.heart{font-size:65px;animation:pulse 1s infinite}
+h1{color:#ff79bd;font-size:35px}
+p{line-height:1.8;color:#f5d9e9}
+.card{
+ background:#ffffff12;border:1px solid #ff79bd55;
+ padding:22px;border-radius:22px;margin:20px 0;
+ box-shadow:0 0 25px #ff399922
+}
+button{
+ background:#ff4f9a;color:white;border:0;
+ padding:14px 24px;border-radius:30px;
+ font-size:16px;font-weight:bold;cursor:pointer;
+ margin:8px
+}
+button:hover{background:#e82d80}
+#message{display:none;color:#ffacd4;font-size:18px}
+.counter{font-size:27px;color:#ff8fc5;font-weight:bold}
+.floating{
+ position:fixed;bottom:-30px;animation:float 7s linear infinite;
+ pointer-events:none;z-index:-1
+}
+@keyframes pulse{50%{transform:scale(1.15)}}
+@keyframes float{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+footer{font-size:12px;color:#bd9aad;margin-top:35px}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="heart">❤️</div>
+  <h1>Sadece Sen 💕</h1>
+  <p>Bu dünyada en güzel şey,<br>
+  seninle paylaşılan güzel anılar...</p>
+
+  <div class="card">
+    <h2>💌 Sana Özel</h2>
+    <p>İyi ki hayatımdasın.<br>
+    Gülüşün günümü güzelleştiriyor.<br>
+    Seninle her an daha anlamlı. ❤️</p>
+    <button onclick="showLove()">Mesajını Aç 💗</button>
+    <p id="message">Seni her gün yeniden seçerdim. 💖</p>
   </div>
+
+  <div class="card">
+    <h2>💞 Aşk Sayacımız</h2>
+    <p>Birlikte olduğumuz gün sayısı:</p>
+    <div class="counter" id="days">Tarih bekleniyor...</div>
+    <p>Her gün yeni bir anı. 🌙</p>
+  </div>
+
+  <div class="card">
+    <h2>🌹 Bir Söz</h2>
+    <p>“Bazı insanlar tesadüf değil,
+    kalbin en güzel hikâyesidir.”</p>
+    <button onclick="newQuote()">Yeni Söz ✨</button>
+    <p id="quote"></p>
+  </div>
+
+  <footer>❤️ Sevgiyle hazırlandı ❤️</footer>
 </div>
-<div id="loveBurst" aria-live="polite" aria-label="Seni Seviyorum Yağmurum"><div id="burstMessage">Seni Seviyorum<br>Yağmurum 💗</div></div>
-<header><span>♡ BİZİM KÜÇÜK DÜNYAMIZ ♡</span><h1>FATİH 🤍 YAĞMUR</h1><p>İki kalp, tek hikâye… 🤍<br>Birlikte biriktirdiğimiz anılara ve daha yaşayacağımız güzel günlere.</p></header>
-<nav><a href="#counter">Bizim süremiz</a><a href="#letter">Mektubum</a><a href="#memories">Anılar</a><a href="#gallery">Galeri</a><a href="#songs">Şarkılar</a><a href="#private">Özel bölüm</a></nav>
-<main>
-<section id="counter"><h2>Birlikte geçen zamanımız 🤍</h2><p>Başlangıç tarihi: <b>1 Ocak 2026</b></p><div class="counter"><div class="unit"><b id="days">—</b><span>Gün</span></div><div class="unit"><b id="hours">—</b><span>Saat</span></div><div class="unit"><b id="minutes">—</b><span>Dakika</span></div><div class="unit"><b id="seconds">—</b><span>Saniye</span></div></div><p class="note">Sayaç 1 Ocak 2026 saat 00.00'dan itibaren hesaplanır.</p></section>
-<section id="letter"><h2>Minağım’a, kalbimin en güzel yerine 💌</h2><div class="letter">MİNAĞIMMM, seni çooooook seviyorum. ❤️ Sen benim hayatımı güzelleştiren meleğimsin. Hayatıma girdiğinden beri her şey benim için daha anlamlı. Sana ne kadar teşekkür etsem azdır; iyi ki seni tanımışım, iyi ki yollarımız kesişmiş, iyi ki benim hayatımdasın yavrum. 🥹🤍
 
-Canımın içi, benim en güzel hayalim sensin. Birlikte kurduğumuz hayallerin bir gün gerçek olmasını, gelecekte de el ele olmayı çok istiyorum. İnşallah bugün birbirimize söylediğimiz güzel sözleri yıllar sonra da söyleriz. Ben seninle sadece bugünleri değil, geleceğimizi de hayal ediyorum aşkım. 💍🤍
+<script>
+// Birlikte olduğunuz tarihi buraya yaz:
+const baslangic = ""; // Örnek: 2026-01-01
 
-Bazen eskisi gibi hemen yazmadığında ya da mesajlarıma hemen bakmadığında seni özlediğim için üzülüyorum. Ama bunu seni suçlamak için söylemiyorum gülüm. Benim için önemli olan birbirimizi anlamamız, birbirimize güvenmemiz ve sevgimizi kaybetmememiz.
+function showLove(){
+ document.getElementById("message").style.display="block";
+}
+function updateDays(){
+ const el=document.getElementById("days");
+ if(!baslangic){
+   el.textContent="Başlangıç tarihini gir 💗";
+   return;
+ }
+ const start=new Date(baslangic+"T00:00:00");
+ if(isNaN(start.getTime()) || start>new Date()){
+   el.textContent="Tarihi kontrol et";
+   return;
+ }
+ el.textContent=Math.floor((Date.now()-start.getTime())/86400000)+" gün ❤️";
+}
+updateDays();
 
-Ben öyle gelip geçici bir sevgi istemiyorum Minağım. Ben seni bugün de, yarın da, gelecekte de sevmek istiyorum. Seni kaybetmekten korktuğum zamanlar oluyor çünkü benim için çok değerlisin. Bazen fazla duygusal davranabiliyorum; birbirimize anlayış göstererek her şeyi daha güzel yapabiliriz. 🫶🏻
-
-Ben bizim sevgimizin kıymetini biliyorum. Bu güzelliği korumak, aramızdaki güveni büyütmek ve her zaman birbirimize dürüst olmak istiyorum. Benim için sevgi sadece güzel sözler söylemek değil; zor zamanlarda da birbirini dinlemek, anlamak ve yanında olmaktır.
-
-Yavrum, bazen kafam dolu oluyor ve duygularımı anlatmakta zorlanıyorum. Böyle zamanlarda beni dinlemen benim için çok değerli. Ben de senin dertlerini dinlemek, seni anlamak ve mutlu olduğunda sevincine ortak olmak istiyorum. 🤍
-
-MİNAĞIMMM, SEN BENİM İÇİN ÇOK ÖZELSİN. Seninle konuşmak, birlikte gülmek ve geleceğe dair hayaller kurmak beni mutlu ediyor. Senin mutlu olmanı, kendini değerli hissetmeni ve benim yanımda huzurlu olmanı istiyorum.
-
-İnşallah ileride bugünleri hatırlayıp gülümseriz. Birlikte daha nice güzel anılar biriktiririz ve birbirimize verdiğimiz değeri hiç unutmayız.
-
-İYİ Kİ VARSIN MİNAĞIMMM. İYİ Kİ BENİM HAYATIMA GİRMİŞSİN. SENİ ÇOOOOOK SEVİYORUM, CANIMIN İÇİ, GÜLÜM, YAVRUMMM. 🤍🫂💗
-
-SENİ BUGÜN DE, YARIN DA, HER GÜN DAHA GÜZEL SEVMEK İSTİYORUM.
-
-Seni çok seven,
-Senin Alex’in 🤍</div></section>
-<section id="memories"><h2>Bizim Hikâyemiz 🤍✨</h2><p class="note">Her şeyin başladığı o güzel günleri hatırlamak için…</p><div class="letter">Seninle tanıştığımda, seni bir gün bu kadar çok seveceğimi bilmiyordum, Yağmurum. 💗
-
-Bir gün grubumda sana zorbalık yaptılar. Sonra seni DM’den çağırdım ve güzelce konuşmaya başladık. Sana yapılanlara sessiz kalmadım; o kişilere gereken tepkiyi gösterdim. O sırada, hayatımda ne kadar özel bir yerin olacağını henüz bilmiyordum.
-
-Günler geçtikçe birbirimizden daha çok hoşlanmaya başladık. Her sohbetimiz bizi biraz daha yakınlaştırdı; konuşmalarımız, gülüşlerimiz ve birbirimizi tanımamız hikâyemizin en güzel parçalarına dönüştü. 🫶🏻
-
-Derken en tatlı şey oldu: aynı gün birbirimize açıldık. İkimiz de içimizdekileri söyledik ve duygularımızın karşılıklı olduğunu öğrendik. O gün, bizim için bambaşka bir başlangıç oldu. 🤍
-
-Şimdi dönüp baktığımda şunu anlıyorum: birbirimizi seçmek, hayatımızdaki en güzel kararlardan biriymiş. İyi ki konuşmuşuz, iyi ki birbirimizi tanımışız ve iyi ki bu hikâyeye birlikte başlamışız.
-
-Daha önümüzde biriktireceğimiz nice güzel anı, paylaşacağımız kahkaha ve birlikte kuracağımız hayal var. Ben bizim hikâyemizin her yeni sayfasının sevgi, güven ve anlayışla dolmasını istiyorum.
-İyi ki varsın Yağmurum. İyi ki bizim hikâyemiz var. Seni seviyorum. 💗</div></section>
-<section id="gallery"><h2>Bizden hatıralar 📸</h2><p>Güzel mesajlarımız ve anılarımızdan küçük parçalar… Her fotoğrafın üzerinde sana özel bir söz var, Yağmurum. 🤍</p><div class="grid">
-<div class="gallery-photo"><img src="data:image/jpeg;base64,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
+const quotes=[
+ "Kalbimin en güzel köşesi sana ait. ❤️",
+ "Seninle sıradan günler bile özel. 🌹",
+ "En güzel hikâyemiz daha bitmedi. 💕",
+ "Mesafeler olsa da güzel anılar bizimle. 💌"
+];
+function newQuote(){
+ document.getElementById("quote").textContent=
+ quotes[Math.floor(Math.random()*quotes.length)];
+}
+setInterval(()=>{
+ const h=document.createElement("div");
+ h.className="floating";
+ h.textContent=["❤️","💕","💗","💖"][Math.floor(Math.random()*4)];
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(16+Math.random()*20)+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),7000);
+},650);
+</script>
+</body>
+</html>
