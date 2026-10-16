@@ -1,436 +1,47 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffe5ef">
-<title>FATİH 🤍 YAĞMUR</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTML Kod Görüntüleyici</title>
 <style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  color:#51283a;
-  background:linear-gradient(#fff5f8,#ffe4ee,#fff8fb);
-}
-
-header{
-  text-align:center;
-  padding:45px 15px;
-  background:radial-gradient(circle,#fff,#ffd9e7);
-}
-
-h1{
-  color:#a92e60;
-  font-size:clamp(2rem,8vw,4rem);
-}
-
-nav{
-  position:sticky;
-  top:0;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:15px;
-  padding:14px;
-  background:#fffafcee;
-  z-index:5;
-}
-
-nav a{
-  color:#a92e60;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-main{
-  width:min(900px,92%);
-  margin:25px auto;
-}
-
-section{
-  background:#ffffffdf;
-  border:1px solid #ffdae7;
-  border-radius:22px;
-  padding:22px;
-  margin:20px 0;
-  box-shadow:0 10px 30px #a92e6010;
-}
-
-h2{color:#a92e60}
-
-button{
-  border:0;
-  border-radius:30px;
-  padding:12px 20px;
-  color:white;
-  background:#ff6f9f;
-  font-size:16px;
-  cursor:pointer;
-}
-
-input{
-  width:100%;
-  padding:13px;
-  border:1px solid #f4aac5;
-  border-radius:12px;
-  margin:10px 0;
-  font-size:16px;
-}
-
-#site{
-  display:none;
-}
-
-#gate{
-  position:fixed;
-  inset:0;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:linear-gradient(145deg,#ffd6e5,#ffedf4,#ffc4db);
-}
-
-.gate-card{
-  max-width:420px;
-  width:100%;
-  text-align:center;
-  padding:28px;
-  background:#ffffffed;
-  border-radius:25px;
-  box-shadow:0 15px 45px #a92e6025;
-}
-
-.big-heart{
-  font-size:60px;
-  animation:beat 1.2s infinite;
-}
-
-@keyframes beat{
-  50%{transform:scale(1.15)}
-}
-
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
-
-.gallery img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-radius:16px;
-  box-shadow:0 4px 15px #ffb6d4;
-}
-
-audio{
-  width:100%;
-  margin-top:10px;
-}
-
-.love-text{
-  line-height:1.9;
-  white-space:pre-line;
-}
-
-.heart{
-  position:fixed;
-  bottom:-30px;
-  z-index:2;
-  pointer-events:none;
-  animation:rise 6s linear forwards;
-}
-
-@keyframes rise{
-  to{
-    transform:translateY(-110vh) rotate(360deg);
-    opacity:0;
-  }
-}
-
-footer{
-  text-align:center;
-  padding:25px;
-  color:#985b73;
-}
-
-@media(max-width:500px){
-  .gallery img{height:160px}
-}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,Arial;background:#111827;color:#f9fafb;padding:16px}
+main{max-width:1100px;margin:auto}h1{font-size:1.5rem}p{line-height:1.5;color:#d1d5db}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}button,.filelabel{border:0;border-radius:10px;padding:12px 16px;background:#2563eb;color:white;font:inherit;cursor:pointer}
+.filelabel{display:inline-block;background:#374151}input[type=file]{display:none}
+textarea{display:block;width:100%;height:65vh;resize:vertical;background:#030712;color:#d1fae5;border:1px solid #4b5563;border-radius:12px;padding:14px;font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre;tab-size:2}
+#status{color:#86efac;min-height:1.5em}.hint{font-size:.9rem}
 </style>
 </head>
-
-<body>
-
-<!-- ŞİFRE EKRANI -->
-<div id="gate">
-  <div class="gate-card">
-    <div class="big-heart">❤️</div>
-    <h1>Fatih 🤍 Yağmur</h1>
-    <p>Bu küçük dünyaya girmek için şifreyi yaz aşkım 💗</p>
-
-    <form id="passwordForm">
-      <input
-        id="password"
-        type="password"
-        placeholder="Şifreyi gir..."
-        autocomplete="off"
-        required
-      >
-      <button type="submit">💖 Giriş Yap</button>
-    </form>
-
-    <p id="error" style="color:#c02660"></p>
-  </div>
+<body><main>
+<h1>HTML Kod Görüntüleyici</h1>
+<p>Orijinal HTML dosyanı seç. Kod burada görünecek; ardından tamamını kopyalayabilir veya metin dosyası olarak indirebilirsin. Dosya yalnızca bu tarayıcıda açılır, herhangi bir yere gönderilmez.</p>
+<div class="actions">
+<label class="filelabel" for="file">HTML dosyası seç</label><input id="file" type="file" accept=".html,.htm,text/html">
+<button id="copy">Tüm kodu kopyala</button><button id="download">Kod olarak indir (.txt)</button>
 </div>
-
-<!-- SİTENİN İÇERİĞİ -->
-<div id="site">
-
-<header>
-  <h1>FATİH 🤍 YAĞMUR</h1>
-  <p>İki kalp, tek hikâye... 💕</p>
-  <div style="font-size:35px">💗 💞 💗</div>
-</header>
-
-<nav>
-  <a href="#biz">Hikâyemiz</a>
-  <a href="#sayac">Sayaç</a>
-  <a href="#fotolar">Fotoğraflar</a>
-  <a href="#muzik">Şarkımız</a>
-  <a href="#mektup">Mektubum</a>
-  <a href="#ozel">Özel Alan</a>
-</nav>
-
-<main>
-
-<section id="biz">
-  <h2>💗 Bizim Hikâyemiz</h2>
-  <p class="love-text">
-Fatih 🤍 Yağmur
-
-Bazen bir insan gelir ve her şeyi güzelleştirir.
-Bir gülüş, bir mesaj, küçücük bir mutluluk...
-İşte bizim hikâyemiz de böyle güzel anlardan oluşsun.
-
-Her yeni gün bize yeni anılar getirsin.
-Kalplerimiz sevgiyle dolsun. 💕
-  </p>
-</section>
-
-<section id="sayac">
-  <h2>⏳ Birlikte Geçen Zaman</h2>
-  <p>Başlangıç tarihini aşağıya gir:</p>
-  <input type="datetime-local" id="startDate">
-  <div id="counter" class="love-text">
-Başlangıç tarihi seçilince sayaç burada görünecek.
-  </div>
-</section>
-
-<section id="fotolar">
-  <h2>📸 Güzel Anılarımız</h2>
-  <p>Fotoğraflarını seçerek galeriye ekleyebilirsin.</p>
-  <input type="file" id="photoPicker" accept="image/*" multiple>
-  <div class="gallery" id="gallery"></div>
-</section>
-
-<section id="muzik">
-  <h2>🎵 Bizim Şarkımız</h2>
-  <p>Dinlemek için müzik dosyanı seç. 💗</p>
-  <input type="file" id="musicPicker" accept="audio/*">
-  <audio id="player" controls loop>
-    Tarayıcın ses dosyasını desteklemiyor.
-  </audio>
-</section>
-
-<section id="mektup">
-  <h2>💌 Sana Mektubum</h2>
-  <p class="love-text">
-Yağmur'um 🤍
-
-Bu sayfa belki sadece birkaç satırdan oluşuyor
-ama içinde güzel anılar biriktirmek için bir dünya var.
-
-Her fotoğrafta bir anı,
-her şarkıda ayrı bir duygu,
-her kalpte sevgi olsun.
-
-Fatih 🤍 Yağmur
-Sonsuz güzel anılara... 💖
-  </p>
-</section>
-
-<section id="ozel">
-  <h2>🔐 Özel Alan</h2>
-  <p>Özel alan şifresini gir.</p>
-  <input type="password" id="privatePassword" placeholder="Şifre">
-  <button id="privateButton">Aç 💗</button>
-  <p id="privateMessage"></p>
-  <div id="privateContent" style="display:none">
-    <h2>💖 Sana Özel</h2>
-    <p>Senin için hazırlanan küçük bir mutluluk köşesi! 💕</p>
-  </div>
-</section>
-
-<section>
-  <h2>💝 Son Bir Sürpriz</h2>
-  <p>Son sürprizi görmek için şifreyi gir.</p>
-  <input type="password" id="surprisePassword" placeholder="Şifre">
-  <button id="surpriseButton">Sürprizi Aç 🎁</button>
-  <p id="surpriseMessage"></p>
-</section>
-
+<p id="status" role="status">Henüz dosya seçilmedi.</p>
+<textarea id="source" spellcheck="false" placeholder="Dosya seçince HTML kaynak kodu burada görünür..."></textarea>
+<p class="hint">Not: 16 MB gibi büyük dosyalarda kopyalama cihazına göre biraz sürebilir. Kodun tamamını seçmek için alana dokunup basılı tutabilir veya “Tüm kodu kopyala” düğmesini kullanabilirsin.</p>
 </main>
-
-<footer>
-  Fatih 🤍 Yağmur — Sevgiyle hazırlandı 💗
-</footer>
-
-</div>
-
 <script>
-"use strict";
-
-const MAIN_PASSWORD = "3131";
-const PRIVATE_PASSWORD = "3131";
-const SURPRISE_PASSWORD = "3131";
-
-const gate = document.getElementById("gate");
-const site = document.getElementById("site");
-
-document.getElementById("passwordForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  if(document.getElementById("password").value === MAIN_PASSWORD){
-    gate.style.display = "none";
-    site.style.display = "block";
-    startHearts();
-  }else{
-    document.getElementById("error").textContent =
-      "Şifre yanlış, tekrar dene 💗";
-  }
+const fileInput=document.getElementById('file');
+const source=document.getElementById('source');
+const status=document.getElementById('status');
+let filename='kaynak-kod.html';
+fileInput.addEventListener('change',async()=>{
+ const f=fileInput.files&&fileInput.files[0];if(!f)return;
+ filename=f.name;status.textContent='Dosya okunuyor...';
+ try{source.value=await f.text();status.textContent=`Yüklendi: ${filename} — ${source.value.length.toLocaleString('tr-TR')} karakter`}
+ catch(e){status.textContent='Dosya okunamadı. Tekrar dene.'}
 });
-
-document.getElementById("privateButton").addEventListener("click", function(){
-  const input = document.getElementById("privatePassword");
-  const message = document.getElementById("privateMessage");
-  const content = document.getElementById("privateContent");
-
-  if(input.value === PRIVATE_PASSWORD){
-    content.style.display = "block";
-    message.textContent = "Özel alan açıldı 💖";
-  }else{
-    message.textContent = "Şifre yanlış 💔";
-  }
+document.getElementById('copy').addEventListener('click',async()=>{
+ if(!source.value){status.textContent='Önce bir HTML dosyası seç.';return}
+ try{await navigator.clipboard.writeText(source.value);status.textContent='Kodun tamamı panoya kopyalandı.'}
+ catch(e){source.focus();source.select();try{const ok=document.execCommand('copy');status.textContent=ok?'Kod kopyalandı.':'Kopyalama engellendi; kod alanını seçip Kopyala kullan.'}catch(_){status.textContent='Kod alanını seçip Kopyala kullan.'}}
 });
-
-document.getElementById("surpriseButton").addEventListener("click", function(){
-  const input = document.getElementById("surprisePassword");
-  const message = document.getElementById("surpriseMessage");
-
-  if(input.value === SURPRISE_PASSWORD){
-    message.textContent =
-      "🎉 Sürpriz! Sen bu hikâyenin en güzel parçasısın. ❤️";
-    makeHearts(30);
-  }else{
-    message.textContent = "Şifre yanlış, tekrar dene 💗";
-  }
+document.getElementById('download').addEventListener('click',()=>{
+ if(!source.value){status.textContent='Önce bir HTML dosyası seç.';return}
+ const blob=new Blob([source.value],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
-
-// Fotoğrafları seç ve galeride göster
-document.getElementById("photoPicker").addEventListener("change", function(e){
-  const gallery = document.getElementById("gallery");
-  gallery.replaceChildren();
-
-  Array.from(e.target.files).forEach(function(file){
-    const image = document.createElement("img");
-    image.alt = "Anımız 💗";
-    image.src = URL.createObjectURL(file);
-    gallery.appendChild(image);
-  });
-});
-
-// Müzik dosyasını seç ve çal
-document.getElementById("musicPicker").addEventListener("change", function(e){
-  const file = e.target.files[0];
-  if(!file) return;
-
-  const player = document.getElementById("player");
-  player.src = URL.createObjectURL(file);
-  player.load();
-  player.play().catch(function(){});
-});
-
-// Başlangıç tarihine göre sayaç
-const startInput = document.getElementById("startDate");
-const counter = document.getElementById("counter");
-
-startInput.addEventListener("change", updateCounter);
-
-function updateCounter(){
-  if(!startInput.value){
-    counter.textContent = "Bir başlangıç tarihi seç.";
-    return;
-  }
-
-  const start = new Date(startInput.value);
-  const now = new Date();
-  let difference = now - start;
-
-  if(difference < 0){
-    counter.textContent = "Başlangıç tarihi gelecekte olamaz.";
-    return;
-  }
-
-  const seconds = Math.floor(difference / 1000);
-  const days = Math.floor(seconds / 86400);
-  const hours = Math.floor(seconds % 86400 / 3600);
-  const minutes = Math.floor(seconds % 3600 / 60);
-  const remainingSeconds = seconds % 60;
-
-  counter.textContent =
-    days + " gün, " +
-    hours + " saat, " +
-    minutes + " dakika, " +
-    remainingSeconds + " saniye 💗";
-}
-
-setInterval(function(){
-  if(startInput.value) updateCounter();
-}, 1000);
-
-// Yüzen kalpler
-function makeHearts(amount){
-  const symbols = ["❤️","💗","💕","💖","💘"];
-
-  for(let i = 0; i < amount; i++){
-    const heart = document.createElement("span");
-    heart.className = "heart";
-    heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (18 + Math.random() * 22) + "px";
-    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-
-    document.body.appendChild(heart);
-    heart.addEventListener("animationend", function(){
-      heart.remove();
-    });
-  }
-}
-
-function startHearts(){
-  makeHearts(15);
-  setInterval(function(){
-    if(site.style.display !== "none") makeHearts(3);
-  }, 2500);
-}
-</script>
-
-</body>
-</html>
+</script></body></html>
